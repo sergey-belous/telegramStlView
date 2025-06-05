@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: ./nodejs/Dockerfile
+    container_name: nodejs
+    ports:
+      - "5173:5173"
+    tty: true
+    volumes:
+      - ./app:/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  couchdb:
+    build:
+      context: .
+      dockerfile: ./couchdb/Dockerfile
+    container_name: couchdb
+    ports:
+      - "5984:5984"
+    tty: true
+    # volumes:
+    #   - ./app:/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  symfony-php-apache:
+    build:
+      context: .
+      dockerfile: ./symfony/Dockerfile
+    container_name: symfony-php-apache
+    ports:
+      - "80:80"
+    tty: true
+    volumes:
+      - ./symfony-app:/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+# volumes:
+  # database_data:
