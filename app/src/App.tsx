@@ -21,7 +21,8 @@ const container = document.getElementById( 'root' );
 
 const renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setPixelRatio( window.devicePixelRatio );
-renderer.setSize( window.innerWidth, window.innerHeight );
+// renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setSize( 1024, 800 );
 container.appendChild( renderer.domElement );
 
 const pmremGenerator = new THREE.PMREMGenerator( renderer );
@@ -30,7 +31,8 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color( 0xffffff );
 // scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.04 ).texture;
 
-const camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100 );
+// const camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100 );
+const camera = new THREE.PerspectiveCamera( 40, 1024 / 800, 1, 100 );
 camera.position.set( 1, 1, 1 );
 camera.lookAt(0, 0, 0);
 
@@ -39,6 +41,16 @@ controls.target.set( 0, 0, 0 );
 controls.update();
 controls.enablePan = false;
 controls.enableDamping = true;
+
+const groundGeometry = new THREE.PlaneGeometry(20, 20);
+const groundMaterial = new THREE.MeshStandardMaterial({ 
+    color: 0xffff00ff
+});
+const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+ground.rotation.x = -Math.PI / 2;
+ground.position.y = -1;
+ground.receiveShadow = true; // поверхность принимает тени
+scene.add(ground);
 
 // // Scene setup
 // const scene = new THREE.Scene();
@@ -110,6 +122,7 @@ class App extends Component {
 
   sceneSetup = () => {
     document.querySelector('.rendered')?.appendChild(renderer.domElement);
+    this.setState({...this.state, "canvas": renderer});
   };
 
   addCustomSceneObjects = () => {
@@ -122,8 +135,15 @@ class App extends Component {
     renderer.render(scene, camera);
   };
 
-  handleFileRead = (e) => {
-    const file = e.target.files[0];
+  handleFileRead = (e: Event|Blob) => {
+    let file;
+
+    if (e instanceof Event) {
+      file = e.target.files[0];
+    } else if (e instanceof Blob) {
+      file = e;
+    }
+    
     if (!file) return;
     
     const reader = new FileReader();
@@ -132,7 +152,7 @@ class App extends Component {
         if (currentModel) {
             scene.remove(currentModel);
         }
-        
+        console.log("[Event.target.result:]", event);
         // Load new model
         const geometry = loader.parse(event.target.result);
         
@@ -160,9 +180,13 @@ class App extends Component {
 
 				mesh.position.set( 0, 0, 0 );
 
-        const matrix = new THREE.Matrix4();
-        matrix.makeRotationX(-Math.PI / 2);
-        mesh.applyMatrix4(matrix);
+
+        /**
+         * IS A MODEL Z AXIS ROTATION
+         */
+        // let matrix = new THREE.Matrix4();
+        // matrix.makeRotationX(-Math.PI / 2);
+        // mesh.applyMatrix4(matrix);
         
         console.log(
           mesh.rotation.x,
@@ -188,6 +212,7 @@ class App extends Component {
         camera.updateProjectionMatrix();
 
         // Adjust camera to fit model
+        console.log(geometry);
         // const size = geometry.boundingBox.getSize(new THREE.Vector3());
         // const maxDim = Math.max(size.x, size.y, size.z);
         // const fov = camera.fov * (Math.PI / 180);
@@ -211,6 +236,34 @@ class App extends Component {
     
     reader.readAsArrayBuffer(file);
   };
+
+  async urlToBlob(url: string) {
+    try {
+      // 1. Загружаем данные по URL
+      
+      const response = await fetch('http://localhost/telegram-downloads/download', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Указываем, что отправляем JSON
+        },
+        body: JSON.stringify({ filePath: url })
+      });
+      
+      // 2. Проверяем статус ответа
+      if (!response.ok) {
+        throw new Error(`Ошибка HTTP: ${response.status}`);
+      }
+      
+      // 3. Преобразуем ответ в Blob
+      const blob = await response.blob();
+      console.log('Blob создан:', blob);
+      return blob;
+      
+    } catch (error) {
+      console.error('Ошибка при загрузке файла:', error);
+      throw error;
+    }
+  }
 
   loadFileTest(event:any, scene:any) {
     var fileObject = event.target.files[0];
@@ -241,10 +294,26 @@ class App extends Component {
     console.log(this.state.messages)
   }
 
+  saveCanvasToState(event) {
+    this.setState({...this.state, png: this.state.canvas.domElement.toDataURL()});
+  }
+
+  logPng(event) {
+    console.log(this.state);
+  }
+
+  async renderStlModel(e, id) {
+    let url = this.state.messages.find((el) => el._id == id).savedUrl
+    console.log('[event:]', e, '[id:]', id, '[url:]', url);
+    let downloadedFile = await this.urlToBlob(url);
+    console.log('[Downloaded File:]', downloadedFile);
+    this.handleFileRead(downloadedFile);
+    this.setState({...this.state, file: downloadedFile});
+    
+  }
+
   render() {
     const { messages } = this.state;
-
-    console.log('___>>>>&&& ' , messages)
 
     return (
       <div>
@@ -255,18 +324,16 @@ class App extends Component {
           {messages ? messages.map((doc) => (
               <li key={doc._id} className="uploaded">
                 <pre>{doc.raw.media?.document?.attributes[0]?.file_name}</pre>
+                <button onClick={(e) => this.renderStlModel(e, doc._id)}>Render Model</button>
               </li>
             )) : 'No messages fetched from Messages.Component' }
           </ul>
-          <input
-            type="file"
-            id="file-input"
-            onChange={(event) => this.handleFileRead(event)}
-            accept=".stl"
-          />
           <div id="info"></div>
         </div>
         <div className="rendered"></div>
+        <hr/>
+        <button onClick={(e) => this.saveCanvasToState(e)}>saveCanvasToState</button><hr/>
+        <button onClick={(e) => this.logPng(e)}>logPng</button>
       </div>
       
     );

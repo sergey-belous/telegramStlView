@@ -6033,3 +6033,1695 @@ Stack trace:
 [33;1mWrapper:        	Connecting to callback IPC server...[0m
 [33;1mWrapper:        	Connected to callback IPC server![0m
 [33;1mWrapper:        	Got ID 13 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 0 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 1 from callback IPC server![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 2 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 3 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 4 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 5 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 6 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 7 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 8 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 9 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 10 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 11 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 12 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 13 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 14 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 15 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 16 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 17 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 18 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 19 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 20 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 21 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 22 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 0 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 1 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 2 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 3 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 4 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 0 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(86): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 1 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 2 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 3 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 4 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 5 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 6 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 7 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 8 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 9 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 10 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 11 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 12 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 13 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 14 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 15 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 16 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 17 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 18 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(87): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 0 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(89): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(89): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 1 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(89): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(89): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 2 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(89): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(89): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 3 from callback IPC server![0m
+[97;1;41mWrapper:        	Got error while trying to send result of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(188): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(89): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[97;1;41mWrapper:        	Got error while trying to send error of error of reverse method 0: Amp\Ipc\Sync\ChannelException: The channel was already closed! in /app/vendor/danog/ipc/lib/Sync/ChannelledSocket.php:39
+Stack trace:
+#0 /app/vendor/danog/madelineproto/src/Ipc/Wrapper.php(192): Amp\Ipc\Sync\ChannelledSocket->send()
+#1 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(430): danog\MadelineProto\Ipc\Wrapper->clientRequest()
+#2 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(621): Revolt\EventLoop\Internal\AbstractDriver->invokeMicrotasks()
+#3 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#4 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(503): Fiber->start()
+#5 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(558): Revolt\EventLoop\Internal\AbstractDriver->invokeCallbacks()
+#6 [internal function]: Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#7 /app/vendor/revolt/event-loop/src/EventLoop/Internal/AbstractDriver.php(96): Fiber->resume()
+#8 /app/vendor/revolt/event-loop/src/EventLoop/Internal/DriverSuspension.php(117): Revolt\EventLoop\Internal\AbstractDriver->Revolt\EventLoop\Internal\{closure}()
+#9 /app/vendor/amphp/amp/src/Future.php(251): Revolt\EventLoop\Internal\DriverSuspension->suspend()
+#10 /app/vendor/danog/madelineproto/src/Ipc/ClientAbstract.php(158): Amp\Future->await()
+#11 /app/vendor/danog/madelineproto/src/Ipc/Client.php(107): danog\MadelineProto\Ipc\ClientAbstract->__call()
+#12 /app/vendor/danog/madelineproto/src/Ipc/Client.php(306): danog\MadelineProto\Ipc\Client->__call()
+#13 /app/vendor/danog/madelineproto/src/InternalDoc.php(481): danog\MadelineProto\Ipc\Client->downloadToDir()
+#14 /app/src/Controller/TelegramItemsController.php(89): danog\MadelineProto\InternalDoc->downloadToDir()
+#15 /app/vendor/symfony/http-kernel/HttpKernel.php(101): App\Controller\TelegramItemsController->App\Controller\{closure}()
+#16 /app/vendor/symfony/http-foundation/StreamedResponse.php(106): Symfony\Component\HttpKernel\HttpKernel::Symfony\Component\HttpKernel\{closure}()
+#17 /app/vendor/symfony/http-foundation/Response.php(395): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#18 /app/vendor/symfony/runtime/Runner/Symfony/HttpKernelRunner.php(38): Symfony\Component\HttpFoundation\Response->send()
+#19 /app/vendor/autoload_runtime.php(29): Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner->run()
+#20 /app/public/index.php(5): require_once('...')
+#21 {main}[0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 4 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 5 from callback IPC server![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 6 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 7 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 8 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 9 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 10 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 11 from callback IPC server![0m
+[37;1;45mLogger:         	MadelineProto 8.4.4[0m
+[37;1;45mLogger:         	Copyright (C) 2016-2025 Daniil Gentili[0m
+[37;1;45mLogger:         	Licensed under AGPLv3[0m
+[37;1;45mLogger:         	https://github.com/danog/MadelineProto[0m
+[33;1mSerialization:  	MadelineProto is starting, please wait...[0m
+[33;1mSerialization:  	Connected to IPC socket![0m
+[33;1mWrapper:        	Connecting to callback IPC server...[0m
+[33;1mWrapper:        	Connected to callback IPC server![0m
+[33;1mWrapper:        	Got ID 12 from callback IPC server![0m

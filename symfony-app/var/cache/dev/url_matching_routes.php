@@ -8,7 +8,8 @@
 return [
     false, // $matchHost
     [ // $staticRoutes
-        '/telegram/download' => [[['_route' => 'app_telegram_items', '_controller' => 'App\\Controller\\TelegramItemsController::index'], null, ['POST' => 0], null, false, false, null]],
+        '/telegram/download' => [[['_route' => 'app_telegram_upload_item_to_server', '_controller' => 'App\\Controller\\TelegramItemsController::uploadItemToServer'], null, ['POST' => 0], null, false, false, null]],
+        '/telegram-downloads/download' => [[['_route' => 'app_telegramitems_downloadmodelfromserver', '_controller' => 'App\\Controller\\TelegramItemsController::downloadModelFromServer'], null, ['POST' => 0], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

@@ -4,6 +4,8 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
-    'app_telegram_items' => [[], ['_controller' => 'App\\Controller\\TelegramItemsController::index'], [], [['text', '/telegram/download']], [], [], []],
-    'App\Controller\TelegramItemsController::index' => [[], ['_controller' => 'App\\Controller\\TelegramItemsController::index'], [], [['text', '/telegram/download']], [], [], []],
+    'app_telegram_upload_item_to_server' => [[], ['_controller' => 'App\\Controller\\TelegramItemsController::uploadItemToServer'], [], [['text', '/telegram/download']], [], [], []],
+    'app_telegramitems_downloadmodelfromserver' => [[], ['_controller' => 'App\\Controller\\TelegramItemsController::downloadModelFromServer'], [], [['text', '/telegram-downloads/download']], [], [], []],
+    'App\Controller\TelegramItemsController::uploadItemToServer' => [[], ['_controller' => 'App\\Controller\\TelegramItemsController::uploadItemToServer'], [], [['text', '/telegram/download']], [], [], []],
+    'App\Controller\TelegramItemsController::downloadModelFromServer' => [[], ['_controller' => 'App\\Controller\\TelegramItemsController::downloadModelFromServer'], [], [['text', '/telegram-downloads/download']], [], [], []],
 ];

@@ -27,8 +27,8 @@ return array(
     '667aeda72477189d0494fecd327c3641' => $vendorDir . '/symfony/var-dumper/Resources/functions/dump.php',
     'db2f6d3e039789c7acd0e5d1d5a42077' => $vendorDir . '/amphp/http-client/src/functions.php',
     '77e5a577434e31d19d8dd6aeceac1ff4' => $vendorDir . '/amphp/http-client/src/Internal/functions.php',
-    '8825ede83f2f289127722d4e842cf7e8' => $vendorDir . '/symfony/polyfill-intl-grapheme/bootstrap.php',
     'e69f7f6ee287b969198c3c9d6777bd38' => $vendorDir . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+    '8825ede83f2f289127722d4e842cf7e8' => $vendorDir . '/symfony/polyfill-intl-grapheme/bootstrap.php',
     '5d92623b88cbe7c988a6aca6fa79ebce' => $vendorDir . '/amphp/parallel/src/Context/functions.php',
     'c20d640a0b06382af5bbe7e0c7475adf' => $vendorDir . '/amphp/parallel/src/Context/Internal/functions.php',
     '42a785d14bae29c606457755ffd1653b' => $vendorDir . '/amphp/parallel/src/Ipc/functions.php',
@@ -49,6 +49,7 @@ return array(
     '4be4fbd9f5a89207b1fd1c85ae339dd7' => $vendorDir . '/amphp/websocket-client/src/functions.php',
     '2b4b72fd9056e8b7ab3f418bbf68fc53' => $vendorDir . '/danog/ipc/lib/functions.php',
     'decc78cc4436b1292c6c0d151b19445c' => $vendorDir . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
+    'f598d06aa772fa33d905e87be6398fb1' => $vendorDir . '/symfony/polyfill-intl-idn/bootstrap.php',
     'cad60ee4f0892badc28f3feef7cce08d' => $vendorDir . '/danog/madelineproto/src/polyfill.php',
     '37a3dc5111fe8f707ab4c132ef1dbc62' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
 );

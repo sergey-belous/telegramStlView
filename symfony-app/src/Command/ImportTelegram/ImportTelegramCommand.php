@@ -55,7 +55,7 @@ class ImportTelegramCommand extends Command
             // ...
         }
 
-        $groupId = 'Warhammer40KSTLARG';
+        $groupId = \App\Const\Connection::GROUP_ID;
 
         $this->mapGroupMessages($groupId);
 

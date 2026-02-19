@@ -85,34 +85,39 @@
     <parameter key="session.metadata.update_threshold">0</parameter>
     <parameter key="data_collector.templates" type="collection"/>
     <parameter key="nelmio_cors.map" type="collection">
-      <parameter key="^/" type="collection"/>
+      <parameter key="^/" type="collection">
+        <parameter key="allow_origin">true</parameter>
+        <parameter key="allow_headers">true</parameter>
+        <parameter key="allow_methods" type="collection">
+          <parameter>GET</parameter>
+          <parameter>POST</parameter>
+          <parameter>PUT</parameter>
+          <parameter>DELETE</parameter>
+          <parameter>OPTIONS</parameter>
+        </parameter>
+        <parameter key="max_age">3600</parameter>
+      </parameter>
     </parameter>
     <parameter key="nelmio_cors.defaults" type="collection">
-      <parameter key="allow_origin" type="collection">
-        <parameter>%env(CORS_ALLOW_ORIGIN)%</parameter>
-      </parameter>
+      <parameter key="allow_origin">true</parameter>
       <parameter key="allow_credentials">false</parameter>
-      <parameter key="allow_headers" type="collection">
-        <parameter>content-type</parameter>
-        <parameter>authorization</parameter>
-      </parameter>
+      <parameter key="allow_headers">true</parameter>
       <parameter key="allow_private_network">false</parameter>
       <parameter key="expose_headers" type="collection">
-        <parameter>Link</parameter>
+        <parameter>*</parameter>
       </parameter>
       <parameter key="allow_methods" type="collection">
         <parameter>GET</parameter>
-        <parameter>OPTIONS</parameter>
         <parameter>POST</parameter>
         <parameter>PUT</parameter>
-        <parameter>PATCH</parameter>
         <parameter>DELETE</parameter>
+        <parameter>OPTIONS</parameter>
       </parameter>
       <parameter key="max_age">3600</parameter>
       <parameter key="hosts" type="collection"/>
-      <parameter key="origin_regex">true</parameter>
+      <parameter key="origin_regex">false</parameter>
+      <parameter key="skip_same_as_origin">false</parameter>
       <parameter key="forced_allow_origin_value">null</parameter>
-      <parameter key="skip_same_as_origin">true</parameter>
     </parameter>
     <parameter key="nelmio_cors.cors_listener.class">Nelmio\CorsBundle\EventListener\CorsListener</parameter>
     <parameter key="nelmio_cors.options_resolver.class">Nelmio\CorsBundle\Options\Resolver</parameter>
@@ -137,6 +142,7 @@
         <argument>Add a short description for your command</argument>
       </call>
     </service>
+    <service id="App\Const\Connection" class="App\Const\Connection" autowire="true" autoconfigure="true"/>
     <service id="App\Controller\TelegramItemsController" class="App\Controller\TelegramItemsController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -148,6 +154,9 @@
     </service>
     <service id="App\DTO\Message" class="App\DTO\Message" autowire="true" autoconfigure="true">
       <tag name="container.error" message="Cannot autowire service &quot;App\DTO\Message&quot;: argument &quot;$id&quot; of method &quot;__construct()&quot; is type-hinted &quot;int&quot;, you should configure its value explicitly."/>
+    </service>
+    <service id="App\DTO\StlFileRequest" class="App\DTO\StlFileRequest" autowire="true" autoconfigure="true">
+      <tag name="container.error" message="Cannot autowire service &quot;App\DTO\StlFileRequest&quot;: argument &quot;$filePath&quot; of method &quot;__construct()&quot; is type-hinted &quot;string&quot;, you should configure its value explicitly."/>
     </service>
     <service id="App\Service\CouchDB" class="App\Service\CouchDB" autowire="true" autoconfigure="true">
       <argument>telegram_messages_2</argument>
@@ -214,7 +223,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.zn9jxqU"/>
+      <argument type="service" id=".service_locator.HNfFFeH"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1412,6 +1421,7 @@
         <argument type="service" id="serializer.normalizer.uid"/>
         <argument type="service" id="serializer.normalizer.datetime"/>
         <argument type="service" id="serializer.normalizer.constraint_violation_list"/>
+        <argument type="service" id="serializer.normalizer.mime_message"/>
         <argument type="service" id="serializer.normalizer.datetimezone"/>
         <argument type="service" id="serializer.normalizer.dateinterval"/>
         <argument type="service" id="serializer.normalizer.form_error"/>
@@ -1438,6 +1448,11 @@
       <argument type="collection"/>
       <argument type="service" id="serializer.name_converter.metadata_aware"/>
     </service>
+    <service id="serializer.normalizer.mime_message" class="Symfony\Component\Serializer\Normalizer\MimeMessageNormalizer">
+      <tag name="serializer.normalizer" built_in="1" priority="-915"/>
+      <tag name="serializer.normalizer.default" priority="-915"/>
+      <argument type="service" id="serializer.normalizer.property"/>
+    </service>
     <service id="serializer.normalizer.datetimezone" class="Symfony\Component\Serializer\Normalizer\DateTimeZoneNormalizer">
       <tag name="serializer.normalizer" built_in="1" priority="-915"/>
       <tag name="serializer.normalizer.default" priority="-915"/>
@@ -1450,7 +1465,7 @@
     <service id="serializer.normalizer.data_uri" class="Symfony\Component\Serializer\Normalizer\DataUriNormalizer">
       <tag name="serializer.normalizer" built_in="1" priority="-920"/>
       <tag name="serializer.normalizer.default" priority="-920"/>
-      <argument>null</argument>
+      <argument type="service" id="mime_types" on-invalid="null"/>
     </service>
     <service id="serializer.normalizer.datetime" class="Symfony\Component\Serializer\Normalizer\DateTimeNormalizer">
       <tag name="serializer.normalizer" built_in="1" priority="-910"/>
@@ -1742,6 +1757,11 @@
       <argument>%session.storage.options%</argument>
     </service>
     <service id="session.marshaller" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\IdentityMarshaller"/>
+    <service id="mime_types" class="Symfony\Component\Mime\MimeTypes">
+      <call method="setDefault">
+        <argument type="service" id="mime_types"/>
+      </call>
+    </service>
     <service id="maker.file_manager" class="Symfony\Bundle\MakerBundle\FileManager">
       <argument type="service" id="filesystem"/>
       <argument type="service" id="maker.autoloader_util"/>
@@ -2406,23 +2426,31 @@
         <argument key="serializer" type="service_closure" id="serializer"/>
       </argument>
     </service>
-    <service id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::index()" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\TelegramItemsController::index()"/>
-      <argument>App\Controller\TelegramItemsController::index()</argument>
+    <service id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::uploadItemToServer()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\TelegramItemsController::uploadItemToServer()"/>
+      <argument>App\Controller\TelegramItemsController::uploadItemToServer()</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.GL345QQ" method="withContext"/>
     </service>
-    <service id=".service_locator.zn9jxqU" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::downloadModelFromServer()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\TelegramItemsController::downloadModelFromServer()"/>
+      <argument>App\Controller\TelegramItemsController::downloadModelFromServer()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.GL345QQ" method="withContext"/>
+    </service>
+    <service id=".service_locator.HNfFFeH" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
-        <argument key="App\Controller\TelegramItemsController::index" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::index()"/>
+        <argument key="App\Controller\TelegramItemsController::uploadItemToServer" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::uploadItemToServer()"/>
+        <argument key="App\Controller\TelegramItemsController::downloadModelFromServer" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::downloadModelFromServer()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
-        <argument key="App\Controller\TelegramItemsController:index" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::index()"/>
+        <argument key="App\Controller\TelegramItemsController:uploadItemToServer" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::uploadItemToServer()"/>
+        <argument key="App\Controller\TelegramItemsController:downloadModelFromServer" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::downloadModelFromServer()"/>
       </argument>
     </service>
     <service id=".service_locator.va_rxC4" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -3113,8 +3141,10 @@
     <service id="SessionHandlerInterface" alias="session.handler.native"/>
     <service id="session.storage.factory" alias="session.storage.factory.native"/>
     <service id="session.handler" alias="session.handler.native"/>
+    <service id="Symfony\Component\Mime\MimeTypesInterface" alias="mime_types"/>
+    <service id="Symfony\Component\Mime\MimeTypeGuesserInterface" alias="mime_types"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.zn9jxqU"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.HNfFFeH"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
     <service id=".service_locator.n_ENPtW" alias=".service_locator.zHyJIs5"/>
     <service id=".service_locator.P1oHa4m" alias=".service_locator.GL345QQ"/>

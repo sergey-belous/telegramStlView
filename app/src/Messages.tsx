@@ -73,7 +73,9 @@ class Messages extends React.Component {
     let row = this.state.data.filter((row) => row.raw.id == id)
     let data = this.state.data;
     data[data.indexOf(row[0])].uploaded = true;
-    this.setState({ data: data });
+    let savedUrl = /Saved to: \/app\/public(.[^\n]+)/g.exec(response.data)[1];
+    data[data.indexOf(row[0])].savedUrl = savedUrl;
+    this.setState({ data: data, });
   }
 
   render() {
