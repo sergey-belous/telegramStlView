@@ -81,3 +81,5 @@ curl -X POST "http://localhost/telegram/import" \
 ```bash
 docker-compose exec backend-fastapi python scripts/backfill_docs.py
 ```
+
+![php-webview-example](php-webview-example.png)
