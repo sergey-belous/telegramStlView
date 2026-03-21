@@ -21,6 +21,19 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class NelmioCorsExtension extends Extension
 {
+    public const DEFAULTS = [
+        'allow_origin' => [],
+        'allow_credentials' => false,
+        'allow_headers' => [],
+        'allow_private_network' => false,
+        'expose_headers' => [],
+        'allow_methods' => [],
+        'max_age' => 0,
+        'hosts' => [],
+        'origin_regex' => false,
+        'skip_same_as_origin' => true,
+    ];
+
     /**
      * {@inheritDoc}
      */
@@ -29,20 +42,7 @@ class NelmioCorsExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $defaults = array_merge(
-            [
-                'allow_origin' => [],
-                'allow_credentials' => false,
-                'allow_headers' => [],
-                'allow_private_network' => false,
-                'expose_headers' => [],
-                'allow_methods' => [],
-                'max_age' => 0,
-                'hosts' => [],
-                'origin_regex' => false,
-            ],
-            $config['defaults']
-        );
+        $defaults = array_merge(self::DEFAULTS, $config['defaults']);
 
         if ($defaults['allow_credentials'] && in_array('*', $defaults['expose_headers'], true)) {
             throw new \UnexpectedValueException('nelmio_cors expose_headers cannot contain a wildcard (*) when allow_credentials is enabled.');
@@ -81,7 +81,8 @@ class NelmioCorsExtension extends Extension
         $container->setParameter('nelmio_cors.map', $config['paths']);
         $container->setParameter('nelmio_cors.defaults', $defaults);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
+        $locator = new FileLocator(__DIR__.'/../Resources/config');
+        $loader = new Loader\PhpFileLoader($container, $locator);
+        $loader->load('services.php');
     }
 }

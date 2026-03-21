@@ -20,7 +20,7 @@ namespace danog\MadelineProto\RPCError;
 use danog\MadelineProto\RPCErrorException;
 
 /**
- * File reference expired, it must be refetched as described in [the documentation](https://core.telegram.org/api/file_reference).
+ * File reference expired, it must be refetched as described in [the documentation](https://core.telegram.org/api/file-references).
  *
  * Note: this exception is part of the raw API, and thus is not covered by the backwards-compatibility promise.
  *
@@ -30,6 +30,6 @@ final class FileReferenceExpiredError extends RPCErrorException
 {
     protected function __construct(int $code, string $caller, ?\Exception $previous = null)
     {
-        parent::__construct('FILE_REFERENCE_EXPIRED', 'File reference expired, it must be refetched as described in [the documentation](https://core.telegram.org/api/file_reference).', $code, $caller, $previous);
+        parent::__construct('FILE_REFERENCE_EXPIRED', 'File reference expired, it must be refetched as described in [the documentation](https://core.telegram.org/api/file-references).', $code, $caller, $previous);
     }
 }

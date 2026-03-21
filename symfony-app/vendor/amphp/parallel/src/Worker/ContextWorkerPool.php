@@ -213,7 +213,8 @@ final class ContextWorkerPool implements LimitedWorkerPool
 
     public function getWorker(): Worker
     {
-        return new Internal\PooledWorker($this->pull(), $this->push);
+        $worker = $this->pull();
+        return new Internal\PooledWorker($worker, $this->push);
     }
 
     /**
@@ -255,7 +256,7 @@ final class ContextWorkerPool implements LimitedWorkerPool
                             throw new WorkerException('Worker factory did not create a viable worker');
                         }
 
-                        $workers->attach($worker, 0);
+                        $workers->offsetSet($worker, 0);
                         return $worker;
                     });
 

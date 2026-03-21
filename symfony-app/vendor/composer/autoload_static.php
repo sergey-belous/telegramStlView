@@ -56,12 +56,12 @@ class ComposerStaticInit74ab73114a599f4a2997b6a284f9e273
     );
 
     public static $prefixLengthsPsr4 = array (
-        'p' => 
+        'p' =>
         array (
             'phpseclib3\\' => 11,
             'phpDocumentor\\Reflection\\' => 25,
         ),
-        'd' => 
+        'd' =>
         array (
             'danog\\TelegramEntities\\' => 23,
             'danog\\MadelineProto\\' => 20,
@@ -72,11 +72,11 @@ class ComposerStaticInit74ab73114a599f4a2997b6a284f9e273
             'danog\\BetterPrometheus\\' => 23,
             'danog\\AsyncOrm\\' => 15,
         ),
-        'W' => 
+        'W' =>
         array (
             'Webmozart\\Assert\\' => 17,
         ),
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Runtime\\Symfony\\Component\\' => 34,
             'Symfony\\Polyfill\\Php83\\' => 23,
@@ -114,11 +114,11 @@ class ComposerStaticInit74ab73114a599f4a2997b6a284f9e273
             'Symfony\\Bundle\\MakerBundle\\' => 27,
             'Symfony\\Bundle\\FrameworkBundle\\' => 31,
         ),
-        'R' => 
+        'R' =>
         array (
             'Revolt\\' => 7,
         ),
-        'P' => 
+        'P' =>
         array (
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
@@ -131,40 +131,40 @@ class ComposerStaticInit74ab73114a599f4a2997b6a284f9e273
             'ParagonIE\\ConstantTime\\' => 23,
             'PHPStan\\PhpDocParser\\' => 21,
         ),
-        'N' => 
+        'N' =>
         array (
             'Nelmio\\CorsBundle\\' => 18,
         ),
-        'M' => 
+        'M' =>
         array (
             'Monolog\\' => 8,
         ),
-        'L' => 
+        'L' =>
         array (
             'LibDNS\\' => 7,
             'League\\Uri\\' => 11,
         ),
-        'K' => 
+        'K' =>
         array (
             'Kelunik\\Certificate\\' => 20,
         ),
-        'G' => 
+        'G' =>
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
-        'D' => 
+        'D' =>
         array (
             'Doctrine\\Inflector\\' => 19,
             'Doctrine\\Deprecations\\' => 22,
             'DASPRiD\\Enum\\' => 13,
         ),
-        'B' => 
+        'B' =>
         array (
             'BaconQrCode\\' => 12,
         ),
-        'A' => 
+        'A' =>
         array (
             'App\\Tests\\' => 10,
             'App\\' => 4,
@@ -198,406 +198,406 @@ class ComposerStaticInit74ab73114a599f4a2997b6a284f9e273
     );
 
     public static $prefixDirsPsr4 = array (
-        'phpseclib3\\' => 
+        'phpseclib3\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
         ),
-        'phpDocumentor\\Reflection\\' => 
+        'phpDocumentor\\Reflection\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
         ),
-        'danog\\TelegramEntities\\' => 
+        'danog\\TelegramEntities\\' =>
         array (
             0 => __DIR__ . '/..' . '/danog/telegram-entities/src',
         ),
-        'danog\\MadelineProto\\' => 
+        'danog\\MadelineProto\\' =>
         array (
             0 => __DIR__ . '/..' . '/danog/madelineproto/src',
         ),
-        'danog\\Loop\\' => 
+        'danog\\Loop\\' =>
         array (
             0 => __DIR__ . '/..' . '/danog/loop/lib',
         ),
-        'danog\\LibDNSJson\\' => 
+        'danog\\LibDNSJson\\' =>
         array (
             0 => __DIR__ . '/..' . '/danog/libdns-json/lib',
         ),
-        'danog\\DialogId\\' => 
+        'danog\\DialogId\\' =>
         array (
             0 => __DIR__ . '/..' . '/danog/tg-dialog-id/src',
         ),
-        'danog\\Decoder\\' => 
+        'danog\\Decoder\\' =>
         array (
             0 => __DIR__ . '/..' . '/danog/tg-file-decoder/src',
         ),
-        'danog\\BetterPrometheus\\' => 
+        'danog\\BetterPrometheus\\' =>
         array (
             0 => __DIR__ . '/..' . '/danog/better-prometheus/lib',
         ),
-        'danog\\AsyncOrm\\' => 
+        'danog\\AsyncOrm\\' =>
         array (
             0 => __DIR__ . '/..' . '/danog/async-orm/src',
         ),
-        'Webmozart\\Assert\\' => 
+        'Webmozart\\Assert\\' =>
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
-        'Symfony\\Runtime\\Symfony\\Component\\' => 
+        'Symfony\\Runtime\\Symfony\\Component\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/runtime/Internal',
         ),
-        'Symfony\\Polyfill\\Php83\\' => 
+        'Symfony\\Polyfill\\Php83\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php83',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'Symfony\\Polyfill\\Mbstring\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        'Symfony\\Polyfill\\Intl\\Normalizer\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
-        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        'Symfony\\Polyfill\\Intl\\Idn\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
         ),
-        'Symfony\\Polyfill\\Intl\\Grapheme\\' => 
+        'Symfony\\Polyfill\\Intl\\Grapheme\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
         ),
-        'Symfony\\Flex\\' => 
+        'Symfony\\Flex\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/flex/src',
         ),
-        'Symfony\\Contracts\\Service\\' => 
+        'Symfony\\Contracts\\Service\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/service-contracts',
         ),
-        'Symfony\\Contracts\\EventDispatcher\\' => 
+        'Symfony\\Contracts\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
         ),
-        'Symfony\\Contracts\\Cache\\' => 
+        'Symfony\\Contracts\\Cache\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/cache-contracts',
         ),
-        'Symfony\\Component\\Yaml\\' => 
+        'Symfony\\Component\\Yaml\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
-        'Symfony\\Component\\VarExporter\\' => 
+        'Symfony\\Component\\VarExporter\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/var-exporter',
         ),
-        'Symfony\\Component\\VarDumper\\' => 
+        'Symfony\\Component\\VarDumper\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
-        'Symfony\\Component\\TypeInfo\\' => 
+        'Symfony\\Component\\TypeInfo\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/type-info',
         ),
-        'Symfony\\Component\\String\\' => 
+        'Symfony\\Component\\String\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/string',
         ),
-        'Symfony\\Component\\Serializer\\' => 
+        'Symfony\\Component\\Serializer\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/serializer',
         ),
-        'Symfony\\Component\\Runtime\\' => 
+        'Symfony\\Component\\Runtime\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/runtime',
         ),
-        'Symfony\\Component\\Routing\\' => 
+        'Symfony\\Component\\Routing\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/routing',
         ),
-        'Symfony\\Component\\PropertyInfo\\' => 
+        'Symfony\\Component\\PropertyInfo\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/property-info',
         ),
-        'Symfony\\Component\\PropertyAccess\\' => 
+        'Symfony\\Component\\PropertyAccess\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/property-access',
         ),
-        'Symfony\\Component\\Process\\' => 
+        'Symfony\\Component\\Process\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/process',
         ),
-        'Symfony\\Component\\Mime\\' => 
+        'Symfony\\Component\\Mime\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/mime',
         ),
-        'Symfony\\Component\\HttpKernel\\' => 
+        'Symfony\\Component\\HttpKernel\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/http-kernel',
         ),
-        'Symfony\\Component\\HttpFoundation\\' => 
+        'Symfony\\Component\\HttpFoundation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/http-foundation',
         ),
-        'Symfony\\Component\\Finder\\' => 
+        'Symfony\\Component\\Finder\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
         ),
-        'Symfony\\Component\\Filesystem\\' => 
+        'Symfony\\Component\\Filesystem\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/filesystem',
         ),
-        'Symfony\\Component\\EventDispatcher\\' => 
+        'Symfony\\Component\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
         ),
-        'Symfony\\Component\\ErrorHandler\\' => 
+        'Symfony\\Component\\ErrorHandler\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/error-handler',
         ),
-        'Symfony\\Component\\Dotenv\\' => 
+        'Symfony\\Component\\Dotenv\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/dotenv',
         ),
-        'Symfony\\Component\\DependencyInjection\\' => 
+        'Symfony\\Component\\DependencyInjection\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/dependency-injection',
         ),
-        'Symfony\\Component\\Console\\' => 
+        'Symfony\\Component\\Console\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
-        'Symfony\\Component\\Config\\' => 
+        'Symfony\\Component\\Config\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
         ),
-        'Symfony\\Component\\Cache\\' => 
+        'Symfony\\Component\\Cache\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/cache',
         ),
-        'Symfony\\Bundle\\MakerBundle\\' => 
+        'Symfony\\Bundle\\MakerBundle\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/maker-bundle/src',
         ),
-        'Symfony\\Bundle\\FrameworkBundle\\' => 
+        'Symfony\\Bundle\\FrameworkBundle\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/framework-bundle',
         ),
-        'Revolt\\' => 
+        'Revolt\\' =>
         array (
             0 => __DIR__ . '/..' . '/revolt/event-loop/src',
         ),
-        'Psr\\Log\\' => 
+        'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'Psr\\Http\\Message\\' => 
+        'Psr\\Http\\Message\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
             1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Http\\Client\\' => 
+        'Psr\\Http\\Client\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Psr\\EventDispatcher\\' => 
+        'Psr\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
         ),
-        'Psr\\Container\\' => 
+        'Psr\\Container\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Psr\\Cache\\' => 
+        'Psr\\Cache\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
-        'Prometheus\\' => 
+        'Prometheus\\' =>
         array (
             0 => __DIR__ . '/..' . '/promphp/prometheus_client_php/src/Prometheus',
         ),
-        'PhpParser\\' => 
+        'PhpParser\\' =>
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
-        'ParagonIE\\ConstantTime\\' => 
+        'ParagonIE\\ConstantTime\\' =>
         array (
             0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
         ),
-        'PHPStan\\PhpDocParser\\' => 
+        'PHPStan\\PhpDocParser\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
         ),
-        'Nelmio\\CorsBundle\\' => 
+        'Nelmio\\CorsBundle\\' =>
         array (
             0 => __DIR__ . '/..' . '/nelmio/cors-bundle',
         ),
-        'Monolog\\' => 
+        'Monolog\\' =>
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
-        'LibDNS\\' => 
+        'LibDNS\\' =>
         array (
             0 => __DIR__ . '/..' . '/daverandom/libdns/src',
         ),
-        'League\\Uri\\' => 
+        'League\\Uri\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/uri-components',
             1 => __DIR__ . '/..' . '/league/uri',
             2 => __DIR__ . '/..' . '/league/uri-interfaces',
         ),
-        'Kelunik\\Certificate\\' => 
+        'Kelunik\\Certificate\\' =>
         array (
             0 => __DIR__ . '/..' . '/kelunik/certificate/src',
         ),
-        'GuzzleHttp\\Psr7\\' => 
+        'GuzzleHttp\\Psr7\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' => 
+        'GuzzleHttp\\Promise\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' => 
+        'GuzzleHttp\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Doctrine\\Inflector\\' => 
+        'Doctrine\\Inflector\\' =>
         array (
-            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
+            0 => __DIR__ . '/..' . '/doctrine/inflector/src',
         ),
-        'Doctrine\\Deprecations\\' => 
+        'Doctrine\\Deprecations\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/deprecations/src',
         ),
-        'DASPRiD\\Enum\\' => 
+        'DASPRiD\\Enum\\' =>
         array (
             0 => __DIR__ . '/..' . '/dasprid/enum/src',
         ),
-        'BaconQrCode\\' => 
+        'BaconQrCode\\' =>
         array (
             0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
         ),
-        'App\\Tests\\' => 
+        'App\\Tests\\' =>
         array (
             0 => __DIR__ . '/../..' . '/tests',
         ),
-        'App\\' => 
+        'App\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'Amp\\Websocket\\Client\\' => 
+        'Amp\\Websocket\\Client\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/websocket-client/src',
         ),
-        'Amp\\Websocket\\' => 
+        'Amp\\Websocket\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/websocket/src',
         ),
-        'Amp\\Sync\\' => 
+        'Amp\\Sync\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/sync/src',
         ),
-        'Amp\\Sql\\Common\\' => 
+        'Amp\\Sql\\Common\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/sql-common/src',
         ),
-        'Amp\\Sql\\' => 
+        'Amp\\Sql\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/sql/src',
         ),
-        'Amp\\Socket\\' => 
+        'Amp\\Socket\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/socket/src',
         ),
-        'Amp\\Serialization\\' => 
+        'Amp\\Serialization\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/serialization/src',
         ),
-        'Amp\\Redis\\' => 
+        'Amp\\Redis\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/redis/src',
         ),
-        'Amp\\Process\\' => 
+        'Amp\\Process\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/process/src',
         ),
-        'Amp\\Postgres\\' => 
+        'Amp\\Postgres\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/postgres/src',
         ),
-        'Amp\\Pipeline\\' => 
+        'Amp\\Pipeline\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/pipeline/src',
         ),
-        'Amp\\Parser\\' => 
+        'Amp\\Parser\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/parser/src',
         ),
-        'Amp\\Parallel\\' => 
+        'Amp\\Parallel\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/parallel/src',
         ),
-        'Amp\\Mysql\\' => 
+        'Amp\\Mysql\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/mysql/src',
         ),
-        'Amp\\Log\\' => 
+        'Amp\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/log/src',
         ),
-        'Amp\\Ipc\\' => 
+        'Amp\\Ipc\\' =>
         array (
             0 => __DIR__ . '/..' . '/danog/ipc/lib',
         ),
-        'Amp\\Http\\Server\\' => 
+        'Amp\\Http\\Server\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/http-server/src',
         ),
-        'Amp\\Http\\Client\\Cookie\\' => 
+        'Amp\\Http\\Client\\Cookie\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/http-client-cookies/src',
         ),
-        'Amp\\Http\\Client\\' => 
+        'Amp\\Http\\Client\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/http-client/src',
         ),
-        'Amp\\Http\\' => 
+        'Amp\\Http\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/http/src',
             1 => __DIR__ . '/..' . '/amphp/hpack/src',
         ),
-        'Amp\\File\\' => 
+        'Amp\\File\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/file/src',
         ),
-        'Amp\\DoH\\' => 
+        'Amp\\DoH\\' =>
         array (
             0 => __DIR__ . '/..' . '/danog/dns-over-https/lib',
         ),
-        'Amp\\Dns\\' => 
+        'Amp\\Dns\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/dns/src',
         ),
-        'Amp\\Cache\\' => 
+        'Amp\\Cache\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/cache/src',
         ),
-        'Amp\\ByteStream\\' => 
+        'Amp\\ByteStream\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/byte-stream/src',
         ),
-        'Amp\\' => 
+        'Amp\\' =>
         array (
             0 => __DIR__ . '/..' . '/amphp/amp/src',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'd' => 
+        'd' =>
         array (
-            'danog\\' => 
+            'danog\\' =>
             array (
                 0 => __DIR__ . '/..' . '/danog/primemodule/lib',
             ),

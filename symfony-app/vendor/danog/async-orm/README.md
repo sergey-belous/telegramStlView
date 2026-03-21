@@ -5,7 +5,7 @@
 [![Psalm level 1](https://shepherd.dev/github/danog/AsyncOrm/level.svg)](https://shepherd.dev/github/danog/AsyncOrm)
 ![License](https://img.shields.io/github/license/danog/AsyncOrm)
 
-Async ORM based on AMPHP v3 and fibers, created by Daniil Gentili (https://daniil.it) and Alexander Pankratov (alexander@i-c-a.su).  
+Async PHP ORM based on AMPHP v3 and fibers, created by Daniil Gentili (https://daniil.it) and Alexander Pankratov (https://github.com/xtrime-ru).  
 
 Supports MySQL, Redis, Postgres.  
 
@@ -181,6 +181,8 @@ One of the most important settings is the `cacheTtl` field, which specifies the 
 If non-zero, all array elements fetched from the database will be stored in an in-memory *read cache* for the specified number of seconds; multiple accesses to the same field will each postpone flushing of that field by `cacheTtl` seconds.  
 
 All elements written to the array by the application will also be stored in an in-memory *write cache*, and flushed to the database every `cacheTtl` seconds.  
+
+The cache is also flushed on shutdown by deferring an event loop callback, so make sure `EventLoop::run();` is being used to run the application, to make sure all data is flushed correctly (alternatively, `saveDbProperties` can be used to manually flush the cache on shutdown when using automatic properties, and `flushCache` in manual mode).  
 
 If the array has an [object value type (ValueType::OBJECT)](#key-and-value-types), write caching is disabled.  
 

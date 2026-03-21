@@ -1,16 +1,56 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 
 import * as THREE from "three";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 
 import Messages from './Messages';
+import { COUCHDB_AUTH, couchdbAllDocsUrl } from './couchdbConfig';
 
 import "./App.css";
 
-const rootElement = document.getElementById("root");
+/**
+ * В dev по умолчанию пустая строка → запросы на тот же origin (Vite), прокси в vite.config.ts → Symfony.
+ * Задайте VITE_API_BASE, если фронт и API на разных доменах без прокси.
+ */
+const API_BASE =
+  import.meta.env.VITE_API_BASE !== undefined && import.meta.env.VITE_API_BASE !== ''
+    ? import.meta.env.VITE_API_BASE
+    : import.meta.env.DEV
+      ? ''
+      : 'http://localhost';
+
+/** MIME, которые часто отдают браузеры для STL (расширение .stl обязательно дополнительно). */
+const STL_MIME_TYPES = new Set([
+  'model/stl',
+  'application/sla',
+  'application/vnd.ms-pki.stl',
+  'application/octet-stream',
+  'text/plain',
+  '',
+]);
+
+function validateStlFile(file: File): string | null {
+  if (!file.name.toLowerCase().endsWith('.stl')) {
+    return `${file.name}: требуется расширение .stl`;
+  }
+  if (file.type && !STL_MIME_TYPES.has(file.type)) {
+    return `${file.name}: недопустимый MIME «${file.type}»`;
+  }
+  return null;
+}
+
+function validateStlFileList(files: FileList | File[]): { valid: File[]; errors: string[] } {
+  const list = Array.from(files as ArrayLike<File>);
+  const errors: string[] = [];
+  const valid: File[] = [];
+  for (const f of list) {
+    const err = validateStlFile(f);
+    if (err) errors.push(err);
+    else valid.push(f);
+  }
+  return { valid, errors };
+}
 
 const stlLoader = new STLLoader();
 
@@ -23,13 +63,10 @@ const renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setPixelRatio( window.devicePixelRatio );
 // renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setSize( 1024, 800 );
-container.appendChild( renderer.domElement );
-
-const pmremGenerator = new THREE.PMREMGenerator( renderer );
+container?.appendChild( renderer.domElement );
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color( 0xffffff );
-// scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.04 ).texture;
 
 // const camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100 );
 const camera = new THREE.PerspectiveCamera( 40, 1024 / 800, 1, 100 );
@@ -95,7 +132,7 @@ scene.add(ambientLight);
 // STL Loader
 const loader = new STLLoader();
 
-let currentModel = null;
+let currentModel: THREE.Mesh | null = null;
 
 // Handle window resize
 // window.addEventListener('resize', function() {
@@ -104,25 +141,119 @@ let currentModel = null;
 //     renderer.setSize(window.innerWidth, window.innerHeight);
 // });
 
-class App extends Component {
-  constructor(props:any) {
+type UserUploadDoc = {
+  _id: string;
+  fileName: string;
+  savedUrl: string;
+  createdAt?: string;
+};
+
+type CouchMessageDoc = {
+  _id: string;
+  savedUrl?: string;
+  raw?: { media?: { document?: { attributes?: Array<{ file_name?: string }> } } };
+};
+
+type AppState = {
+  scene: unknown;
+  canvas?: unknown;
+  messages?: CouchMessageDoc[];
+  userUploads: UserUploadDoc[];
+  userUploadsLoading: boolean;
+  userUploadsLoadError: string | null;
+  uploadClientErrors: string[];
+  uploadServerErrors: Array<{ fileName?: string; error?: string; index?: number }>;
+  png?: string;
+  file?: Blob | File | null;
+};
+
+class App extends Component<Record<string, unknown>, AppState> {
+  messagesComponentRef = React.createRef<InstanceType<typeof Messages>>();
+  stlUploadInputRef = React.createRef<HTMLInputElement>();
+
+  constructor(props: Record<string, unknown>) {
     super(props);
 
     this.state = {
       scene: null,
+      userUploads: [],
+      userUploadsLoading: true,
+      userUploadsLoadError: null,
+      uploadClientErrors: [],
+      uploadServerErrors: [],
     };
-
-    this.messagesComponentRef = React.createRef<HTMLDivElement>();
   }
 
   componentDidMount() {
     this.sceneSetup();
     this.startAnimationLoop();
+    void this.loadUserUploadsFromCouch();
   }
+
+  /** Документы, созданные POST /api/stl/upload (CouchDB: type user_stl_upload / source user_upload). */
+  loadUserUploadsFromCouch = async () => {
+    this.setState({ userUploadsLoading: true, userUploadsLoadError: null });
+    try {
+      const basic = btoa(
+        `${COUCHDB_AUTH.username}:${COUCHDB_AUTH.password}`,
+      );
+      const res = await fetch(couchdbAllDocsUrl(), {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Basic ${basic}`,
+        },
+      });
+      if (!res.ok) {
+        throw new Error(`CouchDB ${res.status} ${res.statusText}`);
+      }
+      const data = (await res.json()) as {
+        rows?: Array<{ doc?: Record<string, unknown> }>;
+      };
+      const rows = data.rows ?? [];
+      const uploads: UserUploadDoc[] = [];
+
+      for (const row of rows) {
+        const doc = row.doc;
+        if (!doc || String(doc._id ?? '').startsWith('_design')) {
+          continue;
+        }
+        const isUserStl =
+          doc.type === 'user_stl_upload' || doc.source === 'user_upload';
+        if (
+          !isUserStl ||
+          typeof doc._id !== 'string' ||
+          typeof doc.fileName !== 'string' ||
+          typeof doc.savedUrl !== 'string'
+        ) {
+          continue;
+        }
+        uploads.push({
+          _id: doc._id,
+          fileName: doc.fileName,
+          savedUrl: doc.savedUrl,
+          createdAt:
+            typeof doc.createdAt === 'string' ? doc.createdAt : undefined,
+        });
+      }
+
+      uploads.sort((a, b) =>
+        (b.createdAt ?? '').localeCompare(a.createdAt ?? ''),
+      );
+
+      this.setState({ userUploads: uploads, userUploadsLoading: false });
+    } catch (e) {
+      console.error('loadUserUploadsFromCouch', e);
+      this.setState({
+        userUploadsLoading: false,
+        userUploadsLoadError:
+          e instanceof Error ? e.message : 'Не удалось загрузить список из CouchDB',
+      });
+    }
+  };
 
   sceneSetup = () => {
     document.querySelector('.rendered')?.appendChild(renderer.domElement);
-    this.setState({...this.state, "canvas": renderer});
+    this.setState({ canvas: renderer });
   };
 
   addCustomSceneObjects = () => {
@@ -135,105 +266,74 @@ class App extends Component {
     renderer.render(scene, camera);
   };
 
-  handleFileRead = (e: Event|Blob) => {
-    let file;
+  /** Общая отрисовка STL из бинарного буфера (CouchDB / форма / Blob). */
+  loadStlFromArrayBuffer = (arrayBuffer: ArrayBuffer) => {
+    if (currentModel) {
+      scene.remove(currentModel);
+      currentModel = null;
+    }
 
+    // STLLoader иногда бросает RangeError на "битом" бинарном буфере
+    // (например, если API вернул JSON/HTML ошибки вместо STL).
+    let geometry: THREE.BufferGeometry;
+    try {
+      geometry = loader.parse(arrayBuffer);
+    } catch (err) {
+      const asText = new TextDecoder('utf-8').decode(arrayBuffer);
+      geometry = loader.parse(asText);
+      console.warn('STL parsed as text fallback:', err);
+    }
+    geometry.computeBoundingBox();
+    const size = new THREE.Vector3();
+    if (geometry.boundingBox) {
+      geometry.boundingBox.getSize(size);
+    }
+
+    const material = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+      specular: 0x888888,
+      shininess: 50,
+      flatShading: true,
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(0, 0, 0);
+    mesh.scale.set(0.01, 0.01, 0.01);
+
+    scene.add(mesh);
+    currentModel = mesh;
+
+    camera.updateProjectionMatrix();
+    controls.update();
+
+    const infoEl = document.getElementById('info');
+    if (infoEl) {
+      const vx = geometry.attributes.position.count;
+      const dim =
+        geometry.boundingBox
+          ? `${size.x.toFixed(2)} × ${size.y.toFixed(2)} × ${size.z.toFixed(2)}`
+          : 'n/a';
+      infoEl.innerHTML = `STL Model Loaded<br>Vertices: ${vx}<br>Dimensions: ${dim}`;
+    }
+  };
+
+  handleFileRead = (e: Event | Blob) => {
+    let file: Blob | undefined;
     if (e instanceof Event) {
-      file = e.target.files[0];
+      const t = e.target as HTMLInputElement;
+      file = t.files?.[0] ?? undefined;
     } else if (e instanceof Blob) {
       file = e;
     }
-    
     if (!file) return;
-    
+
     const reader = new FileReader();
-    reader.onload = function(event) {
-        // Remove previous model if exists
-        if (currentModel) {
-            scene.remove(currentModel);
-        }
-        console.log("[Event.target.result:]", event);
-        // Load new model
-        const geometry = loader.parse(event.target.result);
-        
-        // Compute center for positioning
-        // geometry.computeBoundingBox();
-        // const center = new THREE.Vector3();
-        // geometry.boundingBox.getCenter(center);
-        
-        // Create material
-        const material = new THREE.MeshPhongMaterial({
-            color: 0xFFFFFF,
-            specular: 0x888888,
-            shininess: 50,
-            flatShading: true
-        });
-        
-        // Create mesh
-        const mesh = new THREE.Mesh(geometry, material);
-        
-        // Center the model
-        // mesh.position.x = center.x;
-        // mesh.position.y = center.y;
-        // mesh.position.z = center.z;
-        // mesh.position.set( 1, 1, 0 );
-
-				mesh.position.set( 0, 0, 0 );
-
-
-        /**
-         * IS A MODEL Z AXIS ROTATION
-         */
-        // let matrix = new THREE.Matrix4();
-        // matrix.makeRotationX(-Math.PI / 2);
-        // mesh.applyMatrix4(matrix);
-        
-        console.log(
-          mesh.rotation.x,
-          mesh.rotation.y,
-          mesh.rotation.z,
-        );
-        // mesh.quaternion.setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 2);
-
-        mesh.scale.set( 0.01, 0.01, 0.01 );
-
-        mesh.traverse((node) => {
-          if (node.isMesh) {
-            // Enable AO if the model has AO textures
-            node.material.aoMapIntensity = 1.0; // Adjust intensity (0-1)
-            node.material.needsUpdate = true;
-          }
-        });
-
-        // Add to scene
-        scene.add(mesh);
-        currentModel = mesh;
-      
-        camera.updateProjectionMatrix();
-
-        // Adjust camera to fit model
-        console.log(geometry);
-        // const size = geometry.boundingBox.getSize(new THREE.Vector3());
-        // const maxDim = Math.max(size.x, size.y, size.z);
-        // const fov = camera.fov * (Math.PI / 180);
-        // let cameraZ = Math.abs(maxDim / 2 * Math.tan(fov * 2));
-        
-        // // Add some padding
-        // cameraZ *= 1.5;
-        // camera.position.z = cameraZ;
-        
-        // Reset camera target
-        //controls.target.copy(center);
-        controls.update();
-        
-        // Update info
-        document.getElementById('info').innerHTML = `
-            STL Model Loaded<br>
-            Vertices: ${geometry.attributes.position.count}<br>
-            Dimensions: ${size.x.toFixed(2)} × ${size.y.toFixed(2)} × ${size.z.toFixed(2)}
-        `;
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (result instanceof ArrayBuffer) {
+        this.loadStlFromArrayBuffer(result);
+      }
     };
-    
     reader.readAsArrayBuffer(file);
   };
 
@@ -241,7 +341,7 @@ class App extends Component {
     try {
       // 1. Загружаем данные по URL
       
-      const response = await fetch('http://localhost/telegram-downloads/download', {
+      const response = await fetch(`${API_BASE}/telegram-downloads/download`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', // Указываем, что отправляем JSON
@@ -253,9 +353,19 @@ class App extends Component {
       if (!response.ok) {
         throw new Error(`Ошибка HTTP: ${response.status}`);
       }
-      
+
+      const contentType = (response.headers.get('content-type') || '').toLowerCase();
+      // Если прилетел JSON/HTML, почти наверняка это ошибка API, а не STL.
+      if (contentType.includes('application/json') || contentType.includes('text/html')) {
+        const body = await response.text();
+        throw new Error(`Сервер вернул ${contentType || 'не STL'}: ${body.slice(0, 300)}`);
+      }
+
       // 3. Преобразуем ответ в Blob
       const blob = await response.blob();
+      if (blob.size < 6) {
+        throw new Error(`Слишком маленький ответ (${blob.size} bytes), вероятно не STL`);
+      }
       console.log('Blob создан:', blob);
       return blob;
       
@@ -287,43 +397,232 @@ class App extends Component {
     reader.readAsArrayBuffer(fileObject);
   }
 
-  fetchMessages(event) {
+  fetchMessages = (_event: unknown) => {
+    const child = this.messagesComponentRef.current as unknown as {
+      state?: { data?: Array<CouchMessageDoc & { uploaded?: boolean }> };
+    } | null;
+    const rows = child?.state?.data;
+    if (!rows) return;
     this.setState({
-      messages: this.messagesComponentRef.current.state.data.filter((row) => row.uploaded === true)
-    })
-    console.log(this.state.messages)
-  }
+      messages: rows.filter((row) => row.uploaded === true),
+    });
+  };
 
-  saveCanvasToState(event) {
-    this.setState({...this.state, png: this.state.canvas.domElement.toDataURL()});
-  }
+  saveCanvasToState = (_event: unknown) => {
+    const canvas = this.state.canvas as { domElement?: HTMLCanvasElement } | undefined;
+    if (canvas?.domElement) {
+      this.setState({ png: canvas.domElement.toDataURL() });
+    }
+  };
 
-  logPng(event) {
+  logPng = (_event: unknown) => {
     console.log(this.state);
+  };
+
+  /**
+   * Унифицированный рендер STL:
+   * - `string` — _id документа из CouchDB (Telegram или user upload из списка)
+   * - `File` — только что выбранный локальный файл
+   * - `{ savedUrl }` — путь как в CouchDB (/telegram_downloads/... или /stl_user_uploads/...)
+   * - `{ id }` — то же, что строка
+   * - `{ file }` — явный File из формы
+   */
+  async renderStlModel(
+    _e: unknown,
+    source: string | File | { id?: string; savedUrl?: string; file?: File },
+  ) {
+    try {
+      let buffer: ArrayBuffer | null = null;
+      let blobForState: Blob | File | null = null;
+
+      if (source instanceof File) {
+        buffer = await source.arrayBuffer();
+        blobForState = source;
+      } else if (typeof source === 'string') {
+        const doc =
+          this.state.messages?.find((el) => el._id === source) ??
+          this.state.userUploads.find((el) => el._id === source);
+        const url = doc?.savedUrl;
+        if (!url) {
+          console.error('renderStlModel: нет savedUrl для id', source);
+          return;
+        }
+        const blob = await this.urlToBlob(url);
+        buffer = await blob.arrayBuffer();
+        blobForState = blob;
+      } else if (source.file) {
+        buffer = await source.file.arrayBuffer();
+        blobForState = source.file;
+      } else if (source.savedUrl) {
+        const blob = await this.urlToBlob(source.savedUrl);
+        buffer = await blob.arrayBuffer();
+        blobForState = blob;
+      } else if (source.id) {
+        const doc =
+          this.state.messages?.find((el) => el._id === source.id) ??
+          this.state.userUploads.find((el) => el._id === source.id);
+        const url = doc?.savedUrl;
+        if (!url) {
+          console.error('renderStlModel: нет savedUrl для id', source.id);
+          return;
+        }
+        const blob = await this.urlToBlob(url);
+        buffer = await blob.arrayBuffer();
+        blobForState = blob;
+      }
+
+      if (!buffer) return;
+
+      this.loadStlFromArrayBuffer(buffer);
+      this.setState({ file: blobForState });
+    } catch (e) {
+      console.error('renderStlModel failed:', e);
+      const infoEl = document.getElementById('info');
+      if (infoEl) {
+        infoEl.innerHTML = `Ошибка рендера STL: ${e instanceof Error ? e.message : String(e)}`;
+      }
+    }
   }
 
-  async renderStlModel(e, id) {
-    let url = this.state.messages.find((el) => el._id == id).savedUrl
-    console.log('[event:]', e, '[id:]', id, '[url:]', url);
-    let downloadedFile = await this.urlToBlob(url);
-    console.log('[Downloaded File:]', downloadedFile);
-    this.handleFileRead(downloadedFile);
-    this.setState({...this.state, file: downloadedFile});
-    
-  }
+  onStlFileInputChange = () => {
+    const input = this.stlUploadInputRef.current;
+    if (!input?.files?.length) {
+      this.setState({ uploadClientErrors: [] });
+      return;
+    }
+    const { errors } = validateStlFileList(input.files);
+    this.setState({ uploadClientErrors: errors });
+  };
+
+  handleStlUploadSubmit = async (ev: React.FormEvent) => {
+    ev.preventDefault();
+    const input = this.stlUploadInputRef.current;
+    if (!input?.files?.length) return;
+
+    const { valid, errors } = validateStlFileList(input.files);
+    this.setState({ uploadClientErrors: errors, uploadServerErrors: [] });
+    if (!valid.length) return;
+
+    // Индексированные имена стабильно мапятся в $_FILES['stl_files'] в PHP; третий аргумент — имя файла в multipart.
+    const formData = new FormData();
+    valid.forEach((f, i) => formData.append(`stl_files[${i}]`, f, f.name));
+
+    try {
+      const res = await fetch(`${API_BASE}/api/stl/upload`, {
+        method: 'POST',
+        body: formData,
+        // не задавать Content-Type вручную — браузер добавит boundary для multipart
+      });
+      const data = await res.json();
+      void this.loadUserUploadsFromCouch();
+      if (data.documents?.length) {
+        input.value = '';
+      }
+      this.setState({
+        uploadServerErrors:
+          data.errors?.length
+            ? data.errors
+            : !data.documents?.length
+              ? [{ error: data.error || `HTTP ${res.status}` }]
+              : [],
+      });
+    } catch (err) {
+      console.error(err);
+      const isNetwork =
+        err instanceof TypeError &&
+        (String(err.message).includes('fetch') || String(err.message).includes('Failed to fetch'));
+      this.setState({
+        uploadServerErrors: [
+          {
+            error: isNetwork
+              ? 'Нет связи с API. В режиме разработки используйте относительные URL (VITE_API_BASE не задан) и прокси Vite; в Docker задайте VITE_DEV_PROXY_TARGET=http://symfony-php-apache для сервиса nodejs.'
+              : err instanceof Error
+                ? err.message
+                : String(err),
+          },
+        ],
+      });
+    }
+  };
 
   render() {
-    const { messages } = this.state;
+    const {
+      messages,
+      userUploads,
+      userUploadsLoading,
+      userUploadsLoadError,
+      uploadClientErrors,
+      uploadServerErrors,
+    } = this.state;
 
     return (
       <div>
         <Messages ref={this.messagesComponentRef} />
-        <div className = "canvas-controls">
-          <button onClick={(event) => this.fetchMessages(event)}>Fecth downloadedModels from child component</button>
+        <div className="canvas-controls">
+          <h3>STL Models Storage — загрузка файлов</h3>
+          <form encType="multipart/form-data" onSubmit={(e) => this.handleStlUploadSubmit(e)}>
+            <label>
+              Выберите один или несколько .stl (проверка MIME + расширение):{' '}
+              <input
+                ref={this.stlUploadInputRef}
+                type="file"
+                name="stl_files"
+                accept=".stl,model/stl,application/sla"
+                multiple
+                onChange={this.onStlFileInputChange}
+              />
+            </label>
+            <button type="submit">Загрузить на сервер (CouchDB + диск)</button>
+          </form>
+          {uploadClientErrors?.length ? (
+            <ul className="upload-errors">
+              {uploadClientErrors.map((msg, i) => (
+                <li key={i}>{msg}</li>
+              ))}
+            </ul>
+          ) : null}
+          {uploadServerErrors?.length ? (
+            <ul className="upload-errors server">
+              {uploadServerErrors.map((row, i) => (
+                <li key={i}>
+                  {row.fileName ? `${row.fileName}: ` : ''}
+                  {row.error ?? JSON.stringify(row)}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <div className="user-uploads-block">
+            <h4>Загруженные на сервер модели (CouchDB)</h4>
+            {userUploadsLoading ? (
+              <p className="user-uploads-status">Загрузка списка…</p>
+            ) : userUploadsLoadError ? (
+              <p className="user-uploads-status error">
+                {userUploadsLoadError}{' '}
+                <button type="button" onClick={() => void this.loadUserUploadsFromCouch()}>
+                  Повторить
+                </button>
+              </p>
+            ) : userUploads.length === 0 ? (
+              <p className="user-uploads-status">Пока нет файлов — загрузите .stl выше.</p>
+            ) : (
+              <ul className="user-uploads-list">
+                {userUploads.map((doc) => (
+                  <li key={doc._id}>
+                    <span className="user-upload-name">{doc.fileName}</span>{' '}
+                    <button type="button" onClick={(e) => this.renderStlModel(e, { id: doc._id })}>
+                      Показать в viewer
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <button onClick={(event) => this.fetchMessages(event)}>Fecth downloadedModels from telegram database component</button>
           <ul>
           {messages ? messages.map((doc) => (
               <li key={doc._id} className="uploaded">
-                <pre>{doc.raw.media?.document?.attributes[0]?.file_name}</pre>
+                <pre>{doc.raw?.media?.document?.attributes?.[0]?.file_name}</pre>
                 <button onClick={(e) => this.renderStlModel(e, doc._id)}>Render Model</button>
               </li>
             )) : 'No messages fetched from Messages.Component' }

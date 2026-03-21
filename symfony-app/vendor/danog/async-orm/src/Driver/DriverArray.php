@@ -29,6 +29,7 @@ use danog\AsyncOrm\DbArray;
 use danog\AsyncOrm\DbArrayBuilder;
 use danog\AsyncOrm\Serializer;
 use danog\AsyncOrm\Settings\DriverSettings;
+use danog\AsyncOrm\Settings\SqlSettings;
 
 use function Amp\async;
 use function Amp\Future\await;
@@ -64,6 +65,7 @@ abstract class DriverArray extends DbArray
      * @param DbArray<TTKey, TTValue> $previous
      * @return DbArray<TTKey, TTValue>
      */
+    #[\Override]
     public static function getInstance(DbArrayBuilder $config, DbArray|null $previous): DbArray
     {
         $migrate = true;
@@ -91,22 +93,35 @@ abstract class DriverArray extends DbArray
             && $instance instanceof SqlArray
             && $previous::class === $instance::class
         ) {
-            $instance->importFromTable($previous->config->table);
-        } else {
-            $promises = [];
-            foreach ($previous->getIterator() as $key => $value) {
-                $promises []= async($previous->unset(...), $key)
-                    ->map(static fn () => $instance->set($key, $value));
-                if (\count($promises) % 500 === 0) {
-                    // @codeCoverageIgnoreStart
-                    await($promises);
-                    $promises = [];
-                    // @codeCoverageIgnoreEnd
+            \assert($config->settings instanceof SqlSettings);
+            \assert($previous->config->settings instanceof SqlSettings);
+            $c = $config->settings->config;
+            $prevC = $config->settings->config;
+            if ($c->getHost() === $prevC->getHost()
+                && $c->getPort() === $prevC->getPort()
+                && $c->getDatabase() === $prevC->getDatabase()
+            ) {
+                if ($config->table !== $previous->config->table) {
+                    $instance->importFromTable($previous->config->table);
                 }
+                // Only keyType/valueType changed, and we already migrated those on construction.
+                return $instance;
             }
-            if ($promises) {
+        }
+
+        $promises = [];
+        foreach ($previous->getIterator() as $key => $value) {
+            $promises []= async($previous->unset(...), $key)
+                ->map(static fn () => $instance->set($key, $value));
+            if (\count($promises) % 500 === 0) {
+                // @codeCoverageIgnoreStart
                 await($promises);
+                $promises = [];
+                // @codeCoverageIgnoreEnd
             }
+        }
+        if ($promises) {
+            await($promises);
         }
 
         return $instance;

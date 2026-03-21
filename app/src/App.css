@@ -23,6 +23,37 @@ body {
   display: none;
 }
 
+.user-uploads-block {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  text-align: left;
+}
+
+.user-uploads-status {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.user-uploads-status.error {
+  color: #ffb4b4;
+}
+
+.user-uploads-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+
+.user-uploads-list li {
+  margin: 0.35rem 0;
+}
+
+.user-upload-name {
+  font-weight: 600;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;

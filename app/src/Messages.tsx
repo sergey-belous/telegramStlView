@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import { COUCHDB_AUTH, COUCHDB_DATABASE, COUCHDB_URL } from './couchdbConfig';
+
 class Messages extends React.Component {
   constructor(props) {
     super(props);
@@ -10,19 +12,14 @@ class Messages extends React.Component {
       error: null
     };
 
-    // CouchDB configuration
     this.dbConfig = {
-      url: 'http://localhost:5984', // Replace with your CouchDB server URL
-      database: 'telegram_messages_2', // Replace with your database name
-      designDoc: '', // Optional: if using views
-      view: '' // Optional: if using views
+      url: COUCHDB_URL,
+      database: COUCHDB_DATABASE,
+      designDoc: '',
+      view: ''
     };
 
-    // Basic authentication (if needed)
-    this.auth = {
-      username: 'admin',
-      password: 'password'
-    };
+    this.auth = COUCHDB_AUTH;
   }
 
   componentDidMount() {

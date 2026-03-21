@@ -71,39 +71,40 @@ class ImportTelegramCommand extends Command
     
     public function mapGroupMessages($groupId) {
         // Get information about the group
-        $groupInfo = $this->madeline->getPwrChat($groupId);
+        // $groupInfo = $this->madeline->getPwrChat($groupId);
         
-        echo "Processing group: {$groupInfo['title']}\n";
-        // var_dump($groupInfo);
+        // echo "Processing group: {$groupInfo['title']}\n";
+        // // var_dump($groupInfo);
         
         $totalMessages = 0;
         $lastMessageId = 0;
         
         do {
-            $messages = $this->madeline->messages->getHistory(
-                peer: $groupId,
-                offset_id: $lastMessageId,
-                offset_date: 0,
-                add_offset: 0,
-                limit: 100, // Number of messages to retrieve per request
-                max_id: 0,
-                min_id: 0,
-            );
-            
+            $messages = $this->madeline->messages->getHistory([
+                'peer' => $groupId,
+                'offset_id' => $lastMessageId,
+                'offset_date' => 0,
+                'add_offset' => 0,
+                'limit' => 100, // Number of messages to retrieve per request
+                'max_id' => 0,
+                'min_id' => 0,
+            ]);
+            echo 'History got. \n';
             if (empty($messages['messages'])) {
                 break;
             }
             
             foreach ($messages['messages'] as $message) {
+                //echo 'Processing message... \n';
                 if (isset($message['id'])) {
                     $lastMessageId = $message['id'];
-                    
                     // Prepare document for CouchDB
+                    //var_dump($message);
                     $doc = [
                         '_id' => "tg_{$groupId}_{$message['id']}",
                         'source' => 'telegram',
                         'group_id' => $groupId,
-                        'group_name' => $groupInfo['title'],
+                        'group_name' => '$groupInfo[\'title\']',
                         'message_id' => $message['id'],
                         'date' => date('Y-m-d H:i:s', $message['date']),
                         'timestamp' => $message['date'],
@@ -111,7 +112,8 @@ class ImportTelegramCommand extends Command
                         'sender' => $this->extractSenderInfo($message),
                         'raw' => $message // Store the complete raw message
                     ];
-                    
+                    //var_dump($doc);
+                    //echo 'Doc prepared. \n';
                     // Save to CouchDB
                     $this->saveToCouchDB($doc);
                     
@@ -120,14 +122,16 @@ class ImportTelegramCommand extends Command
                         echo "Processed {$totalMessages} messages...\n";
                     }
                 }
+                //echo 'Message processed. \n';             
             }
-            
+            //echo 'Messages processed. \n';
         } while (count($messages['messages']) > 0);
         
         echo "Completed! Total messages processed: {$totalMessages}\n";
     }
     
     private function extractMessageContent($message) {
+        //echo 'Extracting message content... \n';
         if (isset($message['message'])) {
             return $message['message'];
         } elseif (isset($message['media'])) {
@@ -138,24 +142,29 @@ class ImportTelegramCommand extends Command
     }
     
     private function extractSenderInfo($message) {
-        if (!isset($message['from_id'])) {
-            return null;
-        }
-        
-        try {
-            $user = $this->madeline->getPwrChat($message['from_id']);
-            return [
-                'id' => $user['id'],
-                'name' => $user['first_name'] . (isset($user['last_name']) ? ' ' . $user['last_name'] : ''),
-                'username' => $user['username'] ?? null
-            ];
-        } catch (\Exception $e) {
-            return [
+        return [
                 'id' => $message['from_id'],
                 'name' => 'Unknown',
                 'username' => null
             ];
-        }
+        //echo 'Extracting sender info... \n';
+        // if (!isset($message['from_id'])) {
+        //     return null;
+        // }
+        // try {
+        //     $user = $this->madeline->getPwrChat($message['from_id']);
+        //     return [
+        //         'id' => $user['id'],
+        //         'name' => $user['first_name'] . (isset($user['last_name']) ? ' ' . $user['last_name'] : ''),
+        //         'username' => $user['username'] ?? null
+        //     ];
+        // } catch (\Exception $e) {
+        //     return [
+        //         'id' => $message['from_id'],
+        //         'name' => 'Unknown',
+        //         'username' => null
+        //     ];
+        // }
     }
     
     private function saveToCouchDB($doc) {

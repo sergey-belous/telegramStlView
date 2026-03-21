@@ -61,6 +61,7 @@ if (class_exists(API::class)) {
     }
     require_once 'madeline.php';
 }
+
 /**
  * Event handler class.
  *
@@ -264,8 +265,9 @@ class MyEventHandler extends SimpleEventHandler
     {
         if ($message->photo) {
             $message->reply("Nice! Here's a download link for the photo: ".$message->photo->getDownloadLink());
+        } else {
+            $message->reply("Hmm, why did you delete the group photo?");
         }
-        // The group photo was deleted
     }
 
     /**

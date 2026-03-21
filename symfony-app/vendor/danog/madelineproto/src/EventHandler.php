@@ -40,9 +40,11 @@ use ReflectionMethod;
 use Revolt\EventLoop;
 use Webmozart\Assert\Assert;
 
+use function Amp\async;
 use function Amp\File\isDirectory;
 use function Amp\File\isFile;
 use function Amp\File\listFiles;
+use function Amp\Future\await;
 
 /**
  * Event handler.
@@ -111,6 +113,17 @@ abstract class EventHandler extends AbstractAPI
     final public function internalSaveDbProperties(): void
     {
         $this->privateInternalSaveDbProperties();
+    }
+    /**
+     * @internal Do not use manually.
+     */
+    final public function internalClearDbProperties(): void
+    {
+        $f = [];
+        foreach ($this->properties as $property) {
+            $f []= async($property->clear(...));
+        }
+        await($f);
     }
 
     private static bool $includingPlugins = false;
@@ -282,9 +295,17 @@ abstract class EventHandler extends AbstractAPI
                 } else {
                     $filter = $filter->newInstance();
                 }
+                $reflParams = $methodRefl->getParameters();
+                if (\count($reflParams) === 0) {
+                    throw new AssertionError("Handler method $method must have at least one parameter!");
+                }
+                $t = $reflParams[0]->getType();
+                if ($t === null) {
+                    throw new AssertionError("First parameter of handler method $method must have a typehint!");
+                }
                 $filter = new FiltersAnd(
                     $filter,
-                    Filter::fromReflectionType($methodRefl->getParameters()[0]->getType())
+                    Filter::fromReflectionType($t)
                 );
                 $filter = $filter->initialize($this);
                 if (!$this instanceof SimpleEventHandler) {

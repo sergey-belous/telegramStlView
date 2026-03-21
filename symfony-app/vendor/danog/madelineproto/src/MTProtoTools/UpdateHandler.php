@@ -124,6 +124,7 @@ use danog\MadelineProto\Lang;
 use danog\MadelineProto\Logger;
 use danog\MadelineProto\Loop\Update\FeedLoop;
 use danog\MadelineProto\Loop\Update\UpdateLoop;
+use danog\MadelineProto\MTProto\SpecialMethodType;
 use danog\MadelineProto\ParseMode;
 use danog\MadelineProto\PeerNotInDbException;
 use danog\MadelineProto\ResponseException;
@@ -134,7 +135,6 @@ use danog\MadelineProto\RPCError\SessionPasswordNeededError;
 use danog\MadelineProto\RPCErrorException;
 use danog\MadelineProto\Settings;
 use danog\MadelineProto\TL\TL;
-use danog\MadelineProto\TL\Types\Button;
 use danog\MadelineProto\UpdateHandlerType;
 use danog\MadelineProto\VoIP\DiscardReason;
 use danog\MadelineProto\VoIPController;
@@ -182,7 +182,6 @@ trait UpdateHandler
         $this->eventHandlerMethods = [];
         $this->eventHandlerHandlers = [];
         $this->pluginInstances = [];
-        $this->startUpdateSystem();
     }
     /**
      * PWRTelegram webhook URL.
@@ -210,7 +209,6 @@ trait UpdateHandler
         $this->eventHandlerMethods = [];
         $this->eventHandlerHandlers = [];
         $this->pluginInstances = [];
-        $this->startUpdateSystem();
     }
 
     /**
@@ -679,7 +677,7 @@ trait UpdateHandler
                     $this,
                     $message,
                     $info,
-                    $message['action']['emoticon'],
+                    $message['action']['theme'],
                 ),
                 'messageActionWebViewDataSentMe' => new DialogWebView(
                     $this,
@@ -908,8 +906,11 @@ trait UpdateHandler
                 'peer' => $peer,
                 'message' => $message,
                 'parse_mode' => $parseMode,
-                'reply_to_msg_id' => $replyToMsgId,
-                'top_msg_id' => $topMsgId,
+                'reply_to' => $replyToMsgId !== null || $topMsgId !== null ? [
+                    '_' => 'inputReplyToMessage',
+                    'reply_to_msg_id' => $replyToMsgId,
+                    'top_msg_id' => $topMsgId,
+                ] : null,
                 'reply_markup' => $replyMarkup,
                 'send_as' => $sendAs,
                 'schedule_date' => $scheduleDate,
@@ -1018,13 +1019,6 @@ trait UpdateHandler
             }
         }
         $message = $new;
-        if (isset($message['reply_markup']['rows'])) {
-            foreach ($message['reply_markup']['rows'] as $key => $row) {
-                foreach ($row['buttons'] as $bkey => $button) {
-                    $message['reply_markup']['rows'][$key]['buttons'][$bkey] = $button instanceof Button ? $button : new Button($this, $message, $button);
-                }
-            }
-        }
     }
     /**
      * @param array $updates        Updates
@@ -1103,7 +1097,7 @@ trait UpdateHandler
     public function subscribeToUpdates(mixed $channel): bool
     {
         $channelId = $this->getId($channel);
-        if (!DialogId::isSupergroupOrChannel($channelId)) {
+        if (!DialogId::isSupergroupOrChannelOrMonoforum($channelId)) {
             throw new Exception("You can only subscribe to channels or supergroups!");
         }
         if (!$this->getChannelStates()->has($channelId)) {
@@ -1142,26 +1136,25 @@ trait UpdateHandler
                     [
                         'api_id' => $this->settings->getAppInfo()->getApiId(),
                         'api_hash' => $this->settings->getAppInfo()->getApiHash(),
+                        'specialMethodType' => SpecialMethodType::USER_RELATED,
                     ],
                 );
-                $datacenter = $this->datacenter->currentDatacenter;
                 if ($authorization['_'] === 'auth.loginTokenMigrateTo') {
                     $datacenter = $this->isTestMode() ? 10_000 + $authorization['dc_id'] : $authorization['dc_id'];
-                    $this->authorized_dc = $datacenter;
+                    $this->loginState->publish($this->loginState->getState()->setDc($datacenter));
+                    $authorization['specialMethodType'] = SpecialMethodType::USER_RELATED;
                     $authorization = $this->methodCallAsyncRead(
                         'auth.importLoginToken',
                         $authorization,
-                        $datacenter
                     );
                 }
-                $this->processAuthorization($authorization['authorization']);
             } catch (SessionPasswordNeededError) {
                 $this->logger->logger(Lang::$current_lang['login_2fa_enabled'], Logger::NOTICE);
-                $this->authorization = $this->methodCallAsyncRead('account.getPassword', [], $datacenter ?? null);
+                $this->authorization = $this->getPassword();
                 if (!isset($this->authorization['hint'])) {
                     $this->authorization['hint'] = '';
                 }
-                $this->authorized = API::WAITING_PASSWORD;
+                $this->setLoginState(API::WAITING_PASSWORD);
                 $this->qrLoginDeferred?->cancel();
                 $this->qrLoginDeferred = null;
                 return;

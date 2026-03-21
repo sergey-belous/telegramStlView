@@ -3,8 +3,10 @@
 namespace Amp\Http\Client\Connection\Internal;
 
 use Amp\ByteStream\ReadableBuffer;
+use Amp\Cancellation;
 use Amp\ForbidCloning;
 use Amp\ForbidSerialization;
+use Amp\Future;
 use Amp\Http\Client\Connection\Stream;
 use Amp\Http\Client\ParseException;
 use Amp\Http\Client\Request;
@@ -39,7 +41,8 @@ final class Http1Parser
     public const TRAILERS_START = 4;
     public const TRAILERS = 5;
 
-    private ?Response $response = null;
+    /** @var \WeakReference<Response>|null */
+    private ?\WeakReference $responseRef = null;
 
     private int $state = self::AWAITING_HEADERS;
 
@@ -63,13 +66,14 @@ final class Http1Parser
     private readonly int $maxBodyBytes;
 
     /**
-     * @param \Closure(string):void $bodyDataCallback
+     * @param \Closure(string):Future $bodyDataCallback
      * @param \Closure(HeaderMapType):void $trailersCallback
      */
     public function __construct(
         private readonly Request $request,
         private readonly Stream $stream,
         private readonly \Closure $bodyDataCallback,
+        private readonly Cancellation $bodyCancellation,
         private readonly \Closure $trailersCallback,
     ) {
         $this->maxHeaderBytes = $request->getHeaderSizeLimit();
@@ -110,9 +114,11 @@ final class Http1Parser
 
         if (!$this->bodyStarted && \in_array($this->state, [self::BODY_CHUNKS, self::BODY_IDENTITY, self::BODY_IDENTITY_EOF], true)) {
             $this->bodyStarted = true;
-            $response = $this->response;
-            \assert($response !== null);
-            events()->responseBodyStart($this->request, $this->stream, $response);
+            $response = $this->responseRef?->get();
+            if ($response) {
+                events()->responseBodyStart($this->request, $this->stream, $response);
+                $response = null;
+            }
         }
 
         switch ($this->state) {
@@ -163,8 +169,11 @@ final class Http1Parser
             }
 
             $requestMethod = $this->request->getMethod();
-            $skipBody = $statusCode < HttpStatus::OK || $statusCode === HttpStatus::NOT_MODIFIED || $statusCode === HttpStatus::NO_CONTENT
-                || $requestMethod === 'HEAD' || $requestMethod === 'CONNECT';
+            $skipBody = $statusCode < HttpStatus::OK
+                || $statusCode === HttpStatus::NOT_MODIFIED
+                || $statusCode === HttpStatus::NO_CONTENT
+                || $requestMethod === 'HEAD'
+                || $requestMethod === 'CONNECT';
 
             if ($skipBody) {
                 $this->complete = true;
@@ -183,15 +192,21 @@ final class Http1Parser
                 $response->addHeader($key, $value);
             }
 
+            $this->responseRef = \WeakReference::create($response);
+
             events()->responseHeaderEnd($this->request, $this->stream, $response);
 
-            return $this->response = $response;
+            return $response;
         }
 
         body_identity:
         {
             if ($data !== null && $data !== '') {
-                events()->responseBodyProgress($this->request, $this->stream, $this->response);
+                $response = $this->responseRef?->get();
+                if ($response) {
+                    events()->responseBodyProgress($this->request, $this->stream, $response);
+                    $response = null;
+                }
             }
 
             $bufferDataSize = \strlen($this->buffer);
@@ -220,7 +235,11 @@ final class Http1Parser
         body_identity_eof:
         {
             if ($data !== null && $data !== '') {
-                events()->responseBodyProgress($this->request, $this->stream, $this->response);
+                $response = $this->responseRef?->get();
+                if ($response) {
+                    events()->responseBodyProgress($this->request, $this->stream, $response);
+                    $response = null;
+                }
             }
 
             $this->addToBody($this->buffer);
@@ -231,7 +250,11 @@ final class Http1Parser
         body_chunks:
         {
             if ($data !== null && $data !== '') {
-                events()->responseBodyProgress($this->request, $this->stream, $this->response);
+                $response = $this->responseRef?->get();
+                if ($response) {
+                    events()->responseBodyProgress($this->request, $this->stream, $response);
+                    $response = null;
+                }
             }
 
             if ($this->parseChunkedBody()) {
@@ -272,7 +295,11 @@ final class Http1Parser
 
         complete:
         {
-            events()->responseBodyEnd($this->request, $this->stream, $this->response);
+            $response = $this->responseRef?->get();
+            if ($response) {
+                events()->responseBodyEnd($this->request, $this->stream, $response);
+                $response = null;
+            }
 
             $this->complete = true;
 
@@ -306,7 +333,11 @@ final class Http1Parser
         }
 
         if ($this->maxHeaderBytes > 0 && $headersSize > $this->maxHeaderBytes) {
-            throw new ParseException("Configured header size exceeded: {$headersSize} bytes received, while the configured limit is {$this->maxHeaderBytes} bytes", HttpStatus::REQUEST_HEADER_FIELDS_TOO_LARGE);
+            throw new ParseException(
+                "Configured header size exceeded: {$headersSize} bytes received, while the configured " .
+                "limit is {$this->maxHeaderBytes} bytes",
+                HttpStatus::REQUEST_HEADER_FIELDS_TOO_LARGE,
+            );
         }
 
         return $headers;
@@ -335,13 +366,17 @@ final class Http1Parser
             $this->chunkedEncoding = \in_array('chunked', $transferEncodings, true);
         } elseif (!empty($headerMap['content-length'])) {
             if (\count($headerMap['content-length']) > 1) {
-                throw new ParseException('Can\'t determine body length, because multiple content-length headers present in the response', HttpStatus::BAD_REQUEST);
+                throw new ParseException('Can\'t determine body length, because multiple content-length ' .
+                    'headers present in the response', HttpStatus::BAD_REQUEST);
             }
 
             $contentLength = $headerMap['content-length'][0];
 
             if (!\preg_match('/^(0|[1-9][0-9]*)$/', $contentLength)) {
-                throw new ParseException('Can\'t determine body length, because the content-length header value is invalid', HttpStatus::BAD_REQUEST);
+                throw new ParseException(
+                    'Can\'t determine body length, because the content-length header value is invalid',
+                    HttpStatus::BAD_REQUEST,
+                );
             }
 
             $this->remainingBodyBytes = (int) $contentLength;
@@ -438,7 +473,6 @@ final class Http1Parser
     private function addToBody(string $data): void
     {
         $length = \strlen($data);
-
         if (!$length) {
             return;
         }
@@ -446,11 +480,13 @@ final class Http1Parser
         $this->bodyBytesConsumed += $length;
 
         if ($this->maxBodyBytes > 0 && $this->bodyBytesConsumed > $this->maxBodyBytes) {
-            throw new ParseException("Configured body size exceeded: {$this->bodyBytesConsumed} bytes received, while the configured limit is {$this->maxBodyBytes} bytes", HttpStatus::PAYLOAD_TOO_LARGE);
+            throw new ParseException(
+                "Configured body size exceeded: {$this->bodyBytesConsumed} bytes received," .
+                " while the configured limit is {$this->maxBodyBytes} bytes",
+                HttpStatus::PAYLOAD_TOO_LARGE,
+            );
         }
 
-        if ($this->bodyDataCallback) {
-            ($this->bodyDataCallback)($data);
-        }
+        ($this->bodyDataCallback)($data)->await($this->bodyCancellation);
     }
 }

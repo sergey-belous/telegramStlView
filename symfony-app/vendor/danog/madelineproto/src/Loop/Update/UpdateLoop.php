@@ -22,19 +22,23 @@ namespace danog\MadelineProto\Loop\Update;
 
 use Amp\TimeoutException;
 use danog\Loop\Loop;
+use danog\MadelineProto\API;
 use danog\MadelineProto\Exception;
 use danog\MadelineProto\Logger;
 use danog\MadelineProto\Loop\InternalLoop;
 use danog\MadelineProto\MTProto;
+use danog\MadelineProto\MTProto\LoginState;
+use danog\MadelineProto\MTProto\SpecialMethodType;
 use danog\MadelineProto\PeerNotInDbException;
 use danog\MadelineProto\PTSException;
+use danog\MadelineProto\Reactive\SimpleSubscriber;
 use danog\MadelineProto\RPCError\ChannelInvalidError;
 use danog\MadelineProto\RPCError\ChannelPrivateError;
 use danog\MadelineProto\RPCError\ChatForbiddenError;
 use danog\MadelineProto\RPCError\TimeoutError;
 use danog\MadelineProto\RPCError\UserBannedInChannelError;
-use Revolt\EventLoop;
 
+use Revolt\EventLoop;
 use function Amp\delay;
 
 /**
@@ -43,8 +47,10 @@ use function Amp\delay;
  * @internal
  *
  * @author Daniil Gentili <daniil@daniil.it>
+ *
+ * @implements SimpleSubscriber<LoginState>
  */
-final class UpdateLoop extends Loop
+final class UpdateLoop extends Loop implements SimpleSubscriber
 {
     use InternalLoop {
         __construct as private init;
@@ -56,37 +62,55 @@ final class UpdateLoop extends Loop
 
     private const DEFAULT_TIMEOUT = 10.0;
 
-    private ?int $toPts = null;
     /**
      * Feed loop.
      */
     private ?FeedLoop $feeder = null;
+    private ?int $authorizedDc = null;
     /**
      * Constructor.
      */
     public function __construct(MTProto $API, private int $channelId)
     {
         $this->init($API);
+        $API->loginState->subscribe($this);
     }
     public function __sleep(): array
     {
-        return ['channelId', 'API', 'feeder'];
+        return ['channelId', 'API', 'feeder', 'authorizedDc'];
     }
+    #[\Override]
+    public function onSimpleStateChange($state): void
+    {
+        if ($state->state !== API::LOGGED_IN) {
+            $this->authorizedDc = null;
+            return;
+        }
+        if (null !== $this->authorizedDc = $state->authorizedDc) {
+            if ($this->isRunning()) {
+                $this->resume(true);
+            } else {
+                $this->start();
+            }
+        }
+    }
+
     /**
      * Main loop.
      */
     #[\Override]
     public function loop(): ?float
     {
-        if (!$this->isLoggedIn()) {
+        if ($this->authorizedDc === null) {
             return self::PAUSE;
         }
+        $this->API->feeders[$this->channelId] ??= new FeedLoop($this->API, $this->channelId);
+        $this->API->updaters[$this->channelId] ??= new UpdateLoop($this->API, $this->channelId);
+
         $this->feeder = $this->API->feeders[$this->channelId];
         $state = $this->channelId === self::GENERIC ? $this->API->loadUpdateState() : $this->API->loadChannelState($this->channelId);
 
         $result = [];
-        $toPts = $this->toPts;
-        $this->toPts = null;
         while (true) {
             if ($this->channelId) {
                 $this->API->logger('Resumed and fetching '.$this->channelId.' difference...', Logger::ULTRA_VERBOSE);
@@ -144,10 +168,6 @@ final class UpdateLoop extends Loop
                         }
                         $this->feeder->saveMessages($difference['new_messages']);
                         if (!$difference['final']) {
-                            if ($difference['pts'] >= $toPts) {
-                                unset($difference);
-                                break 2;
-                            }
                             unset($difference);
                             break;
                         }
@@ -171,7 +191,7 @@ final class UpdateLoop extends Loop
                 $this->API->logger('Resumed and fetching normal difference...', Logger::ULTRA_VERBOSE);
                 do {
                     try {
-                        $difference = $this->API->methodCallAsyncRead('updates.getDifference', ['pts' => $state->pts(), 'date' => $state->date(), 'qts' => $state->qts()], $this->API->authorized_dc);
+                        $difference = $this->API->methodCallAsyncRead('updates.getDifference', ['pts' => $state->pts(), 'date' => $state->date(), 'qts' => $state->qts(), 'specialMethodType' => SpecialMethodType::USER_RELATED], $this->authorizedDc);
                         break;
                     } catch (TimeoutError) {
                         delay(1.0);
@@ -212,10 +232,6 @@ final class UpdateLoop extends Loop
                             $result[$this->channelId] = true;
                         }
                         $this->feeder->saveMessages($difference['new_messages']);
-                        if ($difference['intermediate_state']['pts'] >= $toPts) {
-                            unset($difference);
-                            break 2;
-                        }
                         unset($difference);
                         break;
                     case 'updates.differenceTooLong':
@@ -234,10 +250,6 @@ final class UpdateLoop extends Loop
         $this->API->logger("Finished parsing updates in {$this}, pausing for $timeout seconds", Logger::ULTRA_VERBOSE);
 
         return $timeout;
-    }
-    public function setLimit(int $toPts): void
-    {
-        $this->toPts = $toPts;
     }
     /**
      * Get loop name.

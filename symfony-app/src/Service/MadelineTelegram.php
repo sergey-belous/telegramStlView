@@ -22,7 +22,7 @@ class MadelineTelegram
                     'logger' => Logger::ECHO_LOGGER,
                 ],
                 'app_info' => [
-                    'api_id' => '29432513',      // Replace with your API ID
+                    'api_id' => 29432513,      // Replace with your API ID
                     'api_hash' => 'c40b383978049f6816cf0b06c9c537c9',   // Replace with your API hash
                 ],
             ];

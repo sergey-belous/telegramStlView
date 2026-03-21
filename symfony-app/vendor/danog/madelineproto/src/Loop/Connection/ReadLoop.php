@@ -24,6 +24,7 @@ use Amp\ByteStream\PendingReadError;
 use Amp\ByteStream\StreamException;
 use Amp\Websocket\WebsocketClosedException;
 use danog\Loop\Loop;
+use danog\MadelineProto\API;
 use danog\MadelineProto\Logger;
 use danog\MadelineProto\MTProto\MTProtoIncomingMessage;
 use danog\MadelineProto\MTProtoTools\Crypt;
@@ -64,15 +65,15 @@ final class ReadLoop extends Loop
             }
             EventLoop::queue(function () use ($e): void {
                 if ($e instanceof NothingInTheSocketException
-                    && !$this->connection->hasPendingCalls()
-                    && $this->connection->isMedia()
+                    && !$this->connection->unencrypted_new_outgoing
+                    && !$this->connection->new_outgoing
+                    && $this->connection->getShared()->auth->isMedia
                     && !$this->connection->isWriting()
-                    && $this->shared->hasTempAuthKey()
                 ) {
                     $this->API->logger("Got NothingInTheSocketException in DC {$this->datacenter}, disconnecting because we have nothing to do...", Logger::ERROR);
                     $this->connection->disconnect(true);
                 } else {
-                    $this->API->logger($e);
+                    $this->API->logger($e, Logger::ERROR);
                     $this->API->logger("Got exception in DC {$this->datacenter}, reconnecting...", Logger::ERROR);
                     $this->connection->reconnect();
                 }
@@ -87,11 +88,14 @@ final class ReadLoop extends Loop
         if (\is_int($error)) {
             EventLoop::queue(function () use ($error): void {
                 if ($error === -404) {
-                    if ($this->shared->hasTempAuthKey()) {
+                    if ($this->shared->auth->getTempAuthKey() !== null) {
                         $this->API->logger("WARNING: Resetting auth key in DC {$this->datacenter}...", Logger::WARNING);
-                        $this->shared->setTempAuthKey(null);
+                        $this->shared->auth->setTempAuthKey(null, null);
                         $this->shared->resetSession("-404");
                         foreach ($this->connection->new_outgoing as $message) {
+                            $message->resetSent();
+                        }
+                        foreach ($this->connection->unencrypted_new_outgoing as $message) {
                             $message->resetSent();
                         }
                         $this->shared->reconnect();
@@ -117,10 +121,6 @@ final class ReadLoop extends Loop
             return self::STOP;
         }
         $this->connection->httpReceived();
-        if ($this->connection->isHttp()) {
-            $this->connection->pingHttpWaiter();
-        }
-        $this->connection->wakeupHandler();
         return self::CONTINUE;
     }
     public function readMessage(): ?int
@@ -167,8 +167,9 @@ final class ReadLoop extends Loop
         try {
             $seq_no = null;
             $auth_key_id = $buffer->bufferRead(8);
+            $auth = $this->shared->auth;
             if ($unencrypted = $auth_key_id === "\0\0\0\0\0\0\0\0") {
-                if ($this->shared->hasTempAuthKey()) {
+                if ($this->shared->auth->connectionState->getState()->isEncrypted()) {
                     throw new SecurityException("Got unencrypted message from encrypted socket!");
                 }
                 $message_id = Tools::unpackSignedLong($buffer->bufferRead(8));
@@ -184,9 +185,9 @@ final class ReadLoop extends Loop
                     $this->connection->incomingBytesCtr?->incBy($left);
                     $buffer->bufferRead($left);
                 }
-            } elseif ($auth_key_id === $this->shared->getTempAuthKey()->getID()) {
+            } elseif ($auth_key_id === $auth->getTempID()) {
                 $message_key = $buffer->bufferRead(16);
-                [$aes_key, $aes_iv] = Crypt::kdf($message_key, $this->shared->getTempAuthKey()->getAuthKey(), false);
+                [$aes_key, $aes_iv] = Crypt::kdf($message_key, $auth->getTempAuthKey(), false);
                 $payload_length -= 24;
                 $left = $payload_length & 15;
                 $payload_length -= $left;
@@ -195,7 +196,7 @@ final class ReadLoop extends Loop
                     $this->connection->incomingBytesCtr?->incBy($left);
                     $buffer->bufferRead($left);
                 }
-                if ($message_key != substr(hash('sha256', substr($this->shared->getTempAuthKey()->getAuthKey(), 96, 32).$decrypted_data, true), 8, 16)) {
+                if ($message_key != substr(hash('sha256', substr($auth->getTempAuthKey(), 96, 32).$decrypted_data, true), 8, 16)) {
                     throw new SecurityException('msg_key mismatch');
                 }
                 /*
@@ -237,22 +238,28 @@ final class ReadLoop extends Loop
             $this->API->logger('Received payload from DC '.$this->datacenter, Logger::ULTRA_VERBOSE);
 
             try {
-                $deserialized = $this->API->getTL()->deserialize($message_data, ['type' => '', 'connection' => $this->connection]);
+                $deserialized = $this->API->getTL()->deserialize($message_data, ['type' => '', 'connection' => $this->connection, 'encrypted' => !$unencrypted]);
             } catch (\Throwable $e) {
                 Logger::log('Error during deserializing message (base64): ' .  base64_encode($message_data), Logger::ERROR);
+                $this->API->report("Schema issues, please report this to @danog_community: ".API::RELEASE.", $e");
                 throw $e;
             } finally {
                 $this->API->minDatabase->reset();
                 $this->API->referenceDatabase->reset();
             }
 
-            $message = new MTProtoIncomingMessage($deserialized, $message_id, $unencrypted);
+            $message = new MTProtoIncomingMessage(
+                $this->connection,
+                $deserialized,
+                $message_id,
+                $unencrypted,
+                false
+            );
             if (isset($seq_no)) {
                 $message->setSeqNo($seq_no);
             }
 
-            $this->connection->new_incoming->enqueue($message);
-            $this->connection->incoming_messages[$message_id] = $message;
+            $this->connection->wakeupHandler($message);
             $this->connection->incomingCtr?->inc();
         } finally {
             $this->connection->reading(false);

@@ -64,7 +64,7 @@ class TranslationUpdateCommand extends Command
         parent::__construct();
 
         if (!method_exists($writer, 'getFormats')) {
-            throw new \InvalidArgumentException(sprintf('The writer class "%s" does not implement the "getFormats()" method.', $writer::class));
+            throw new \InvalidArgumentException(\sprintf('The writer class "%s" does not implement the "getFormats()" method.', $writer::class));
         }
     }
 
@@ -74,15 +74,15 @@ class TranslationUpdateCommand extends Command
             ->setDefinition([
                 new InputArgument('locale', InputArgument::REQUIRED, 'The locale'),
                 new InputArgument('bundle', InputArgument::OPTIONAL, 'The bundle name or directory where to load the messages'),
-                new InputOption('prefix', null, InputOption::VALUE_OPTIONAL, 'Override the default prefix', '__'),
+                new InputOption('prefix', null, InputOption::VALUE_REQUIRED, 'Override the default prefix', '__'),
                 new InputOption('no-fill', null, InputOption::VALUE_NONE, 'Extract translation keys without filling in values'),
-                new InputOption('format', null, InputOption::VALUE_OPTIONAL, 'Override the default output format', 'xlf12'),
+                new InputOption('format', null, InputOption::VALUE_REQUIRED, 'Override the default output format', 'xlf12'),
                 new InputOption('dump-messages', null, InputOption::VALUE_NONE, 'Should the messages be dumped in the console'),
                 new InputOption('force', null, InputOption::VALUE_NONE, 'Should the extract be done'),
                 new InputOption('clean', null, InputOption::VALUE_NONE, 'Should clean not found messages'),
-                new InputOption('domain', null, InputOption::VALUE_OPTIONAL, 'Specify the domain to extract'),
-                new InputOption('sort', null, InputOption::VALUE_OPTIONAL, 'Return list of messages sorted alphabetically'),
-                new InputOption('as-tree', null, InputOption::VALUE_OPTIONAL, 'Dump the messages as a tree-like structure: The given value defines the level where to switch to inline YAML'),
+                new InputOption('domain', null, InputOption::VALUE_REQUIRED, 'Specify the domain to extract'),
+                new InputOption('sort', null, InputOption::VALUE_REQUIRED, 'Return list of messages sorted alphabetically'),
+                new InputOption('as-tree', null, InputOption::VALUE_REQUIRED, 'Dump the messages as a tree-like structure: The given value defines the level where to switch to inline YAML'),
             ])
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command extracts translation strings from templates

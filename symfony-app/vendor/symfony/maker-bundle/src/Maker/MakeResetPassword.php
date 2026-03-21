@@ -139,6 +139,7 @@ class MakeResetPassword extends AbstractMaker
 
         // reset-password-bundle 1.6 includes the ability to generate a fake token.
         // we need to check that version 1.6 is installed
+        // @phpstan-ignore function.alreadyNarrowedType
         if (class_exists(ResetPasswordHelper::class) && !method_exists(ResetPasswordHelper::class, 'generateFakeResetToken')) {
             throw new RuntimeCommandException('Please run "composer upgrade symfonycasts/reset-password-bundle". Version 1.6 or greater of this bundle is required.');
         }
@@ -227,12 +228,12 @@ class MakeResetPassword extends AbstractMaker
         );
 
         $requestFormTypeClassNameDetails = $generator->createClassNameDetails(
-            'ResetPasswordRequestForm',
+            'ResetPasswordRequestFormType',
             'Form\\'
         );
 
         $changePasswordFormTypeClassNameDetails = $generator->createClassNameDetails(
-            'ChangePasswordForm',
+            'ChangePasswordFormType',
             'Form\\'
         );
 
@@ -301,7 +302,7 @@ class MakeResetPassword extends AbstractMaker
 
         $generator->generateClass(
             $requestFormTypeClassNameDetails->getFullName(),
-            'resetPassword/ResetPasswordRequestForm.tpl.php',
+            'resetPassword/ResetPasswordRequestFormType.tpl.php',
             [
                 'use_statements' => $useStatements,
                 'email_field' => $this->emailPropertyName,
@@ -322,7 +323,7 @@ class MakeResetPassword extends AbstractMaker
 
         $generator->generateClass(
             $changePasswordFormTypeClassNameDetails->getFullName(),
-            'resetPassword/ChangePasswordForm.tpl.php',
+            'resetPassword/ChangePasswordFormType.tpl.php',
             ['use_statements' => $useStatements]
         );
 

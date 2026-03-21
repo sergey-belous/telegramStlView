@@ -40,6 +40,14 @@ final class Http2Driver extends AbstractHttpDriver implements Http2Processor
 {
     public const DEFAULT_CONCURRENT_STREAM_LIMIT = 100;
 
+    /** Stream behavior window interval in seconds. */
+    private const STREAM_BEHAVIOR_WINDOW = 10;
+    /** Ratio of normally released streams to exceptionally released which must be exceeded to automatically
+     * disconnect the client.*/
+    private const RESET_STREAM_RATIO = 0.25;
+    /** Number of streams released within the behavior window for the reset ratio to be applicable. */
+    private const STREAM_BEHAVIOR_THRESHOLD = 10;
+
     public const DEFAULT_MAX_FRAME_SIZE = 1 << 14;
     public const DEFAULT_WINDOW_SIZE = (1 << 16) - 1;
 
@@ -78,10 +86,10 @@ final class Http2Driver extends AbstractHttpDriver implements Http2Processor
 
     private bool $allowsPush;
 
-    /** @var int Last used local stream ID. */
+    /** @var non-negative-int Last used local stream ID. */
     private int $localStreamId = 0;
 
-    /** @var int Last used remote stream ID. */
+    /** @var non-negative-int Last used remote stream ID. */
     private int $remoteStreamId = 0;
 
     /** @var array<int, Http2Stream> */
@@ -89,6 +97,14 @@ final class Http2Driver extends AbstractHttpDriver implements Http2Processor
 
     /** @var \WeakMap<Request, int> Map of Request objects to stream IDs. */
     private \WeakMap $streamIdMap;
+
+    /** @var array<int, int> Release timestamps of the last {@see STREAM_BEHAVIOR_WINDOW} released streams. */
+    private array $releasedStreams = [];
+
+    /** @var array<int, int> Release timestamps of the last {@see STREAM_BEHAVIOR_WINDOW} streams released due to
+     *      an exception (such as the client resetting the stream or sending an invalid frame).
+     */
+    private array $exceptionalStreams = [];
 
     /** @var array<string, int> Map of URLs pushed on this connection. */
     private array $pushCache = [];
@@ -286,6 +302,9 @@ final class Http2Driver extends AbstractHttpDriver implements Http2Processor
     {
         $chunk = ""; // Required for the finally, not directly overwritten, even if your IDE says otherwise.
 
+        $need = $response->getHeader("content-length");
+        $wrote = 0;
+
         try {
             $status = $response->getStatus();
 
@@ -333,6 +352,7 @@ final class Http2Driver extends AbstractHttpDriver implements Http2Processor
             if ($request->getMethod() === "HEAD") {
                 $this->streams[$id]->state |= Http2Stream::LOCAL_CLOSED;
                 $this->writeData("", $id);
+                $need = null;
                 return;
             }
 
@@ -344,6 +364,7 @@ final class Http2Driver extends AbstractHttpDriver implements Http2Processor
                 if (!isset($this->streams[$id])) {
                     return;
                 }
+                $wrote += \strlen($chunk);
 
                 $this->writeData($chunk, $id);
 
@@ -390,7 +411,7 @@ final class Http2Driver extends AbstractHttpDriver implements Http2Processor
                 return;
             }
 
-            if ($chunk !== null) {
+            if ($chunk !== null || ($need !== null && $wrote !== (int) $need)) {
                 $error ??= Http2Parser::INTERNAL_ERROR;
                 $this->writeFrame(\pack("N", $error), Http2Parser::RST_STREAM, Http2Parser::NO_FLAG, $id);
                 $this->releaseStream($id, $exception ?? new ClientException($this->client, "Stream error", $error));
@@ -679,9 +700,13 @@ final class Http2Driver extends AbstractHttpDriver implements Http2Processor
     {
         \assert(isset($this->streams[$id]), "Tried to release a non-existent stream");
 
+        $exceptional = $exception !== null;
+
         $this->streams[$id]->deferredCancellation->cancel();
 
-        if ($id & 1) {
+        $clientInitiated = $id & 1;
+
+        if ($clientInitiated) {
             $this->timeoutTracker->remove($id);
         }
 
@@ -695,8 +720,32 @@ final class Http2Driver extends AbstractHttpDriver implements Http2Processor
 
         unset($this->streams[$id], $this->bodyQueues[$id], $this->trailerDeferreds[$id]);
 
-        if ($id & 1) { // Client-initiated stream.
-            $this->remainingStreams++;
+        if (!$clientInitiated) {
+            return; // Additional checks unnecessary for server-initiated streams.
+        }
+
+        $this->remainingStreams++;
+
+        $now = \time();
+        $filterCallback = fn (int $releasedAt) => $releasedAt > $now - self::STREAM_BEHAVIOR_WINDOW;
+        $this->releasedStreams = \array_filter($this->releasedStreams, $filterCallback);
+        $this->releasedStreams[$id] = $now;
+
+        if ($exceptional) {
+            $this->exceptionalStreams = \array_filter($this->exceptionalStreams, $filterCallback);
+            $this->exceptionalStreams[$id] = $now;
+
+            $releasedStreamCount = \count($this->releasedStreams);
+            $exceptionalStreamCount = \count($this->exceptionalStreams);
+
+            if ($releasedStreamCount >= self::STREAM_BEHAVIOR_THRESHOLD
+                && $exceptionalStreamCount / $releasedStreamCount > self::RESET_STREAM_RATIO
+            ) {
+                $this->handleConnectionException(new Http2ConnectionException(
+                    'Too many reset streams',
+                    Http2Parser::ENHANCE_YOUR_CALM,
+                ));
+            }
         }
     }
 
@@ -887,9 +936,16 @@ final class Http2Driver extends AbstractHttpDriver implements Http2Processor
                 );
             }
         } else {
-            if (!($streamId & 1) || $this->remainingStreams-- <= 0 || $streamId <= $this->remoteStreamId) {
+            if (!($streamId & 1) || $streamId <= $this->remoteStreamId) {
                 throw new Http2ConnectionException(
                     "Invalid stream ID",
+                    Http2Parser::PROTOCOL_ERROR
+                );
+            }
+
+            if ($this->remainingStreams-- <= 0) {
+                throw new Http2ConnectionException(
+                    "Concurrent stream limit exceeded",
                     Http2Parser::PROTOCOL_ERROR
                 );
             }

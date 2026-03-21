@@ -43,7 +43,7 @@ final class FormTypeRenderer
                     $extraUseClasses = array_merge($extraUseClasses, $fieldTypeOptions['extra_use_classes'] ?? []);
                     $fieldTypeOptions['options_code'] = str_replace(
                         $fieldTypeOptions['extra_use_classes'],
-                        array_map(fn ($class) => Str::getShortClassName($class), $fieldTypeOptions['extra_use_classes']),
+                        array_map(static fn ($class) => Str::getShortClassName($class), $fieldTypeOptions['extra_use_classes']),
                         $fieldTypeOptions['options_code']
                     );
                 }
@@ -70,7 +70,7 @@ final class FormTypeRenderer
 
         $this->generator->generateClass(
             $formClassDetails->getFullName(),
-            'form/Form.tpl.php',
+            'form/Type.tpl.php',
             [
                 'use_statements' => $useStatements,
                 'bounded_class_name' => $boundClassDetails ? $boundClassDetails->getShortName() : null,

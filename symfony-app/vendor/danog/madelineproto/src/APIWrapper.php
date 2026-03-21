@@ -76,13 +76,13 @@ final class APIWrapper
         return $this->API;
     }
 
-    private ?int $drop = null;
+    private ?float $drop = null;
     /**
      * @internal
      */
     public function getRpcDropCancellation(): Cancellation
     {
-        return new TimeoutCancellation($this->drop ??= $this->getAPI()->getSettings()->getRpc()->getRpcDropTimeout());
+        return new TimeoutCancellation($this->drop ??= (float) $this->getAPI()->getSettings()->getRpc()->getRpcDropTimeout());
     }
 
     /**
@@ -98,19 +98,21 @@ final class APIWrapper
     /**
      * Serialize session.
      */
-    public function serialize(): bool
+    public function serialize(): void
     {
         if ($this->API === null) {
-            return false;
+            return;
         }
         if ($this->API instanceof Client) {
-            return false;
+            return;
         }
         $this->API->waitForInit();
         $API = $this->API;
 
-        if ($API->authorized === API::LOGGED_OUT) {
-            return false;
+        if ($API->getAuthorization() === API::LOGGED_OUT) {
+            $API->deleteSession();
+            $this->session->delete();
+            return;
         }
 
         $this->session->serialize(
@@ -123,7 +125,6 @@ final class APIWrapper
         if (!Magic::$suspendPeriodicLogging) {
             Logger::log('Saved session!');
         }
-        return true;
     }
 
     /**

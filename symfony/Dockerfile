@@ -11,6 +11,9 @@ RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
 
 COPY ./.infrastructure/php/20-xdebug.ini /etc/php/8.3/cli/conf.d/20-xdebug.ini
+# Лимиты загрузки: и для Apache (запросы / API), и для CLI (проверка `docker compose exec … php -i` без путаницы)
+COPY ./.infrastructure/php/99-uploads.ini /etc/php/8.3/apache2/conf.d/99-uploads.ini
+COPY ./.infrastructure/php/99-uploads.ini /etc/php/8.3/cli/conf.d/99-uploads.ini
 
 RUN mkdir /app
 RUN chown -R www-data:www-data /app

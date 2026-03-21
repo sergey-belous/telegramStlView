@@ -11,13 +11,19 @@
 
 namespace Symfony\Component\Cache\Traits;
 
+use Symfony\Component\Cache\Traits\Relay\BgsaveTrait;
 use Symfony\Component\Cache\Traits\Relay\CopyTrait;
+use Symfony\Component\Cache\Traits\Relay\FtTrait;
 use Symfony\Component\Cache\Traits\Relay\GeosearchTrait;
 use Symfony\Component\Cache\Traits\Relay\GetrangeTrait;
+use Symfony\Component\Cache\Traits\Relay\GetWithMetaTrait;
 use Symfony\Component\Cache\Traits\Relay\HsetTrait;
+use Symfony\Component\Cache\Traits\Relay\IsTrackedTrait;
 use Symfony\Component\Cache\Traits\Relay\MoveTrait;
 use Symfony\Component\Cache\Traits\Relay\NullableReturnTrait;
 use Symfony\Component\Cache\Traits\Relay\PfcountTrait;
+use Symfony\Component\Cache\Traits\Relay\Relay11Trait;
+use Symfony\Component\Cache\Traits\Relay\SwapdbTrait;
 use Symfony\Component\VarExporter\LazyObjectInterface;
 use Symfony\Contracts\Service\ResetInterface;
 
@@ -31,10 +37,14 @@ class_exists(\Symfony\Component\VarExporter\Internal\LazyObjectState::class);
  */
 class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInterface
 {
+    use BgsaveTrait;
     use CopyTrait;
+    use FtTrait;
     use GeosearchTrait;
     use GetrangeTrait;
+    use GetWithMetaTrait;
     use HsetTrait;
+    use IsTrackedTrait;
     use MoveTrait;
     use NullableReturnTrait;
     use PfcountTrait;
@@ -42,6 +52,8 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         resetLazyObject as reset;
     }
     use RelayProxyTrait;
+    use Relay11Trait;
+    use SwapdbTrait;
 
     public function __construct($host = null, $port = 6379, $connect_timeout = 0.0, $command_timeout = 0.0, #[\SensitiveParameter] $context = [], $database = 0)
     {
@@ -336,11 +348,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
     public function lcs($key1, $key2, $options = null): mixed
     {
         return $this->initializeLazyObject()->lcs(...\func_get_args());
-    }
-
-    public function bgsave($schedule = false): \Relay\Relay|bool
-    {
-        return $this->initializeLazyObject()->bgsave(...\func_get_args());
     }
 
     public function save(): \Relay\Relay|bool

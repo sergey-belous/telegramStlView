@@ -11,6 +11,11 @@ services:
     tty: true
     volumes:
       - ./app:/app
+    environment:
+      # Прокси Vite → Symfony внутри docker-сети (убирает CORS при fetch с :5173 на API)
+      VITE_DEV_PROXY_TARGET: http://symfony-php-apache
+    depends_on:
+      - symfony-php-apache
     extra_hosts:
       - "host.docker.internal:host-gateway"
   couchdb:

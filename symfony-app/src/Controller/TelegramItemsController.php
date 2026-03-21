@@ -4,16 +4,14 @@ namespace App\Controller;
 
 use App\DTO\Message;
 use App\DTO\MessageMedia;
-use App\DTO\StlFileRequest;
 use App\Service\CouchDB;
 use App\Service\MadelineTelegram;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 use danog\MadelineProto\Exception;
@@ -27,8 +25,8 @@ final class TelegramItemsController extends AbstractController
     ){
     }
 
-    #[Route('/telegram/download', name: 'app_telegram_upload_item_to_server', methods: ["POST"])]
-    public function uploadItemToServer(Request $request, SerializerInterface $serializer ): StreamedResponse | JsonResponse
+    #[Route('/telegram/download', name: 'app_telegram_items', methods: ["POST"])]
+    public function index(Request $request, SerializerInterface $serializer ): StreamedResponse | JsonResponse
     {
         $downloadFolder = '/app/public/telegram_downloads';
         
@@ -50,6 +48,8 @@ final class TelegramItemsController extends AbstractController
 
                 $output = fopen('php://output', 'w');
 
+                fwrite($output, 'Response started' . PHP_EOL); flush(); // 'w' - 'write
+
                 $message = $serializer->deserialize($request->getContent(), Message::class, 'json', [
                     'groups' => ['Message.all']
                 ]);
@@ -58,8 +58,8 @@ final class TelegramItemsController extends AbstractController
                 fwrite($output, "Logged in as: " . $MadelineProto->getSelf()['username'] . PHP_EOL); flush();
                 
                 // Resolve channel ID
-                $channel = $MadelineProto->getPwrChat(App\Const\Connection::GROUP_ID);
-                fwrite($output, "Accessing channel: {$channel['title']}" . PHP_EOL); flush();
+                //$channel = $MadelineProto->getPwrChat('Warhammer40KSTLARG');
+                //fwrite($output, "Accessing channel: {$channel['title']}" . PHP_EOL); flush();
 
                 fwrite($output, "Message id: {$message->id}" . PHP_EOL); flush();
                 
@@ -112,11 +112,6 @@ final class TelegramItemsController extends AbstractController
                 $existing = json_decode($response->getBody(), true);
                 
                 $existing['uploaded'] = true;
-
-                $fileName = ''; preg_match('/[^\/\\\\]+$/', $file, $fileName);
-                $fileName = '/telegram_downloads/' . $fileName[0];
-                $existing['savedUrl'] = $fileName;
-
                 // $doc = [];
                 // Update with new revision
                 // $doc['_rev'] = $existing['_rev'];
@@ -134,65 +129,36 @@ final class TelegramItemsController extends AbstractController
         return $response;
     }
 
-    #[Route(path: '/telegram-downloads/download', methods: ["POST"])]
-    public function downloadModelFromServer(Request $request, SerializerInterface $serializer): BinaryFileResponse
+    #[Route('/telegram-downloads/download', name: 'app_telegram_download_file', methods: ["POST"])]
+    public function downloadFile(Request $request): BinaryFileResponse|JsonResponse
     {
-        // while (ob_get_level()) {
-        //     ob_end_clean();
-        // }
-
-        // $downloadFolder = '/app/public/telegram_downloads';
-        // $publicFolder = '/app/public';
-        
-        // //Create download directory if it doesn't exist
-        // if (!file_exists($downloadFolder)) {
-        //     mkdir($downloadFolder, 0777, true);
-        // }
-
-        $fileRequest = $message = $serializer->deserialize($request->getContent(), StlFileRequest::class, 'json', [
-            'groups' => ['StlFileRequest.all']
-        ]);
-
-        // $output = fopen('php://output', 'w');
-
-        // $response = new StreamedResponse(function () use ($request, $serializer, $output, $fileName, $publicFolder) {
-        //     echo $fileName;
-        //     try {
-        //         fwrite($output, fread(fopen ($fileName, "r"), filesize($fileName)));
-        //     } catch (\Throwable $e) {
-        //         fwrite($output, '[ERROR]' . $e->getMessage()) . PHP_EOL; flush();
-        //     }
-        // });
-
-        // $response->headers->set('X-Accel-Buffering', 'no'); // Для Nginx
-        // $response->headers->set('Cache-Control', 'no-store');
-
-        // return $response;
-
-        // Укажите путь к директории, где хранятся файлы
-        // $filesDirectory = $this->getParameter('kernel.project_dir').'/var/files/';
-        
-        // Полный путь к файлу
-        $filePath = '/app/public/' . $fileRequest->filePath;
-        
-        // Проверяем существование файла
-        if (!file_exists($filePath)) {
-            throw $this->createNotFoundException('Файл не найден');
+        $filePath = $request->request->get('filePath');
+        if (!$filePath) {
+            $data = json_decode($request->getContent(), true);
+            $filePath = $data['filePath'] ?? null;
         }
-        
-        // Создаем ответ с файлом
-        $response = new BinaryFileResponse($filePath);
 
-        $fileName = ''; preg_match('/[^\/\\\\]+$/', $filePath, $fileName);
-        $fileName = $fileName[0];
+        if (!$filePath) {
+            return new JsonResponse(['error' => 'file_path is required'], Response::HTTP_BAD_REQUEST);
+        }
 
-        // Устанавливаем заголовки для скачивания файла
-        $response->setContentDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $fileName
-        );
-        
-        return $response;
-        
+        // Normalized path from frontend: /telegram_downloads/<file> or /stl_user_uploads/<file>
+        $basename = basename($filePath);
+        if ($basename === '' || str_contains($basename, '..')) {
+            return new JsonResponse(['error' => 'Invalid file path'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $projectDir = $this->getParameter('kernel.project_dir');
+        if (str_starts_with((string) $filePath, '/stl_user_uploads/')) {
+            $absolutePath = $projectDir . '/public/stl_user_uploads/' . $basename;
+        } else {
+            $absolutePath = $projectDir . '/public/telegram_downloads/' . $basename;
+        }
+
+        if (!file_exists($absolutePath) || !is_readable($absolutePath)) {
+            return new JsonResponse(['error' => 'File not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        return new BinaryFileResponse($absolutePath);
     }
 }

@@ -143,6 +143,14 @@
       </call>
     </service>
     <service id="App\Const\Connection" class="App\Const\Connection" autowire="true" autoconfigure="true"/>
+    <service id="App\Controller\StlUploadController" class="App\Controller\StlUploadController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <argument type="service" id="App\Service\CouchDB"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\StlUploadController"/>
+      </call>
+    </service>
     <service id="App\Controller\TelegramItemsController" class="App\Controller\TelegramItemsController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -177,6 +185,7 @@
       <call method="allowControllers">
         <argument type="collection">
           <argument>App\Kernel</argument>
+          <argument>App\Controller\StlUploadController</argument>
           <argument>App\Controller\TelegramItemsController</argument>
         </argument>
       </call>
@@ -223,7 +232,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.HNfFFeH"/>
+      <argument type="service" id=".service_locator.zn9jxqU"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -307,7 +316,7 @@
           <argument type="service_closure" id="nelmio_cors.cacheable_response_vary_listener"/>
           <argument>onResponse</argument>
         </argument>
-        <argument>-10</argument>
+        <argument>-15</argument>
       </call>
       <call method="addListener">
         <argument>kernel.controller_arguments</argument>
@@ -1976,11 +1985,14 @@
       <argument>%nelmio_cors.defaults%</argument>
     </service>
     <service id="nelmio_cors.cacheable_response_vary_listener" class="Nelmio\CorsBundle\EventListener\CacheableResponseVaryListener">
-      <tag name="kernel.event_listener" event="kernel.response" method="onResponse" priority="-10"/>
+      <tag name="kernel.event_listener" event="kernel.response" method="onResponse" priority="-15"/>
       <tag name="container.hot_path"/>
     </service>
     <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\ImportTelegram\ImportTelegramCommand" class="App\Command\ImportTelegram\ImportTelegramCommand" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Command\ImportTelegram\ImportTelegramCommand" class="App\Command\ImportTelegram\ImportTelegramCommand" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\StlUploadController" class="App\Controller\StlUploadController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\StlUploadController" class="App\Controller\StlUploadController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\StlUploadController" class="App\Controller\StlUploadController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\TelegramItemsController" class="App\Controller\TelegramItemsController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\TelegramItemsController" class="App\Controller\TelegramItemsController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\TelegramItemsController" class="App\Controller\TelegramItemsController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -2426,31 +2438,23 @@
         <argument key="serializer" type="service_closure" id="serializer"/>
       </argument>
     </service>
-    <service id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::uploadItemToServer()" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\TelegramItemsController::uploadItemToServer()"/>
-      <argument>App\Controller\TelegramItemsController::uploadItemToServer()</argument>
+    <service id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::index()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\TelegramItemsController::index()"/>
+      <argument>App\Controller\TelegramItemsController::index()</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.GL345QQ" method="withContext"/>
     </service>
-    <service id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::downloadModelFromServer()" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\TelegramItemsController::downloadModelFromServer()"/>
-      <argument>App\Controller\TelegramItemsController::downloadModelFromServer()</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.GL345QQ" method="withContext"/>
-    </service>
-    <service id=".service_locator.HNfFFeH" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.zn9jxqU" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
-        <argument key="App\Controller\TelegramItemsController::uploadItemToServer" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::uploadItemToServer()"/>
-        <argument key="App\Controller\TelegramItemsController::downloadModelFromServer" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::downloadModelFromServer()"/>
+        <argument key="App\Controller\TelegramItemsController::index" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::index()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
-        <argument key="App\Controller\TelegramItemsController:uploadItemToServer" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::uploadItemToServer()"/>
-        <argument key="App\Controller\TelegramItemsController:downloadModelFromServer" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::downloadModelFromServer()"/>
+        <argument key="App\Controller\TelegramItemsController:index" type="service_closure" id=".service_locator.GL345QQ.App\Controller\TelegramItemsController::index()"/>
       </argument>
     </service>
     <service id=".service_locator.va_rxC4" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -2475,6 +2479,12 @@
         <argument key="serializer" type="service_closure" id="serializer" on-invalid="ignore"/>
         <argument key="parameter_bag" type="service_closure" id="parameter_bag" on-invalid="ignore"/>
       </argument>
+    </service>
+    <service id=".service_locator.ZyP9f7K.App\Controller\StlUploadController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\StlUploadController"/>
+      <argument>App\Controller\StlUploadController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.ZyP9f7K" method="withContext"/>
     </service>
     <service id=".service_locator.ZyP9f7K.App\Controller\TelegramItemsController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\TelegramItemsController"/>
@@ -3144,7 +3154,7 @@
     <service id="Symfony\Component\Mime\MimeTypesInterface" alias="mime_types"/>
     <service id="Symfony\Component\Mime\MimeTypeGuesserInterface" alias="mime_types"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.HNfFFeH"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.zn9jxqU"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
     <service id=".service_locator.n_ENPtW" alias=".service_locator.zHyJIs5"/>
     <service id=".service_locator.P1oHa4m" alias=".service_locator.GL345QQ"/>

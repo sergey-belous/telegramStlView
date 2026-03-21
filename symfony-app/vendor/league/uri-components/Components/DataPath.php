@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace League\Uri\Components;
 
+use BackedEnum;
 use Deprecated;
 use finfo;
 use League\Uri\Contracts\DataPathInterface;
@@ -23,6 +24,9 @@ use League\Uri\FeatureDetection;
 use Psr\Http\Message\UriInterface as Psr7UriInterface;
 use SplFileObject;
 use Stringable;
+use Throwable;
+use Uri\Rfc3986\Uri as Rfc3986Uri;
+use Uri\WhatWg\Url as WhatWgUrl;
 
 use function base64_decode;
 use function base64_encode;
@@ -64,7 +68,7 @@ final class DataPath extends Component implements DataPathInterface
     /**
      * New instance.
      */
-    private function __construct(Stringable|string $path)
+    private function __construct(BackedEnum|Stringable|string $path)
     {
         /** @var string $path */
         $path = self::filterComponent($path);
@@ -107,7 +111,7 @@ final class DataPath extends Component implements DataPathInterface
     private function filterMimeType(string $mimetype): string
     {
         return match (true) {
-            '' == $mimetype => self::DEFAULT_MIMETYPE,
+            '' === $mimetype => self::DEFAULT_MIMETYPE,
             1 === preg_match(self::REGEXP_MIMETYPE, $mimetype) =>  $mimetype,
             default => throw new SyntaxError(sprintf('Invalid mimeType, `%s`.', $mimetype)),
         };
@@ -132,7 +136,7 @@ final class DataPath extends Component implements DataPathInterface
             $isBinaryData = true;
         }
 
-        $params = array_filter(explode(';', $parameters));
+        $params = array_filter(explode(';', $parameters), fn (string $param) => '' !== $param);
         if ([] !== array_filter($params, $this->validateParameter(...))) {
             throw new SyntaxError(sprintf('Invalid mediatype parameters, `%s`.', $parameters));
         }
@@ -147,7 +151,7 @@ final class DataPath extends Component implements DataPathInterface
     {
         $properties = explode('=', $parameter);
 
-        return 2 != count($properties) || self::BINARY_PARAMETER === strtolower($properties[0]);
+        return 2 !== count($properties) || self::BINARY_PARAMETER === strtolower($properties[0]);
     }
 
     /**
@@ -170,9 +174,21 @@ final class DataPath extends Component implements DataPathInterface
     /**
      * Returns a new instance from a string or a stringable object.
      */
-    public static function new(Stringable|string $value = ''): self
+    public static function new(BackedEnum|Stringable|string $value = ''): self
     {
         return new self($value);
+    }
+
+    /**
+     * Create a new instance from a string.or a stringable structure or returns null on failure.
+     */
+    public static function tryNew(BackedEnum|Stringable|string $uri = ''): ?self
+    {
+        try {
+            return self::new($uri);
+        } catch (Throwable) {
+            return null;
+        }
     }
 
     /**
@@ -209,7 +225,7 @@ final class DataPath extends Component implements DataPathInterface
     /**
      * Create a new instance from a URI object.
      */
-    public static function fromUri(Stringable|string $uri): self
+    public static function fromUri(WhatWgUrl|Rfc3986Uri|BackedEnum|Stringable|string $uri): self
     {
         return self::new(Path::fromUri($uri)->toString());
     }
@@ -217,6 +233,11 @@ final class DataPath extends Component implements DataPathInterface
     public function value(): ?string
     {
         return $this->path->value();
+    }
+
+    public function equals(mixed $value): bool
+    {
+        return $this->path->equals($value);
     }
 
     public function getData(): string
@@ -259,10 +280,22 @@ final class DataPath extends Component implements DataPathInterface
         return $this->path->decoded();
     }
 
-    public function save(string $path, string $mode = 'w'): SplFileObject
+    public function normalize(): self
     {
+        return new self((string) $this->path->normalize()->value());
+    }
+
+    /**
+     * @param ?resource $context
+     */
+    public function save(BackedEnum|Stringable|string $path, string $mode = 'w', $context = null): SplFileObject
+    {
+        if ($path instanceof BackedEnum) {
+            $path = $path->value;
+        }
+
         $data = $this->isBinaryData ? base64_decode($this->document, true) : rawurldecode($this->document);
-        $file = new SplFileObject($path, $mode);
+        $file = new SplFileObject((string) $path, $mode, context: $context);
         $file->fwrite((string) $data);
 
         return $file;
@@ -291,7 +324,7 @@ final class DataPath extends Component implements DataPathInterface
         bool $isBinaryData,
         string $data
     ): string {
-        if ('' != $parameters) {
+        if ('' !== $parameters) {
             $parameters = ';'.$parameters;
         }
 
@@ -356,8 +389,11 @@ final class DataPath extends Component implements DataPathInterface
         };
     }
 
-    public function withParameters(Stringable|string $parameters): DataPathInterface
+    public function withParameters(BackedEnum|Stringable|string $parameters): DataPathInterface
     {
+        if ($parameters instanceof BackedEnum) {
+            $parameters = $parameters->value;
+        }
         $parameters = (string) $parameters;
 
         return match ($this->getParameters()) {

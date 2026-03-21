@@ -35,7 +35,6 @@ use danog\AsyncOrm\KeyType;
 use danog\AsyncOrm\Serializer;
 use danog\AsyncOrm\Settings\PostgresSettings;
 use danog\AsyncOrm\ValueType;
-use Revolt\EventLoop;
 
 /**
  * Postgres database backend.
@@ -45,7 +44,7 @@ use Revolt\EventLoop;
  * @template TValue
  * @extends SqlArray<TKey, TValue>
  */
-class PostgresArray extends SqlArray
+final class PostgresArray extends SqlArray
 {
     /** @var array<PostgresConnectionPool> */
     private static array $connections = [];
@@ -62,10 +61,10 @@ class PostgresArray extends SqlArray
         \assert($settings instanceof PostgresSettings);
 
         $dbKey = $settings->getDbIdentifier();
-        $lock = self::$mutex->acquire($dbKey);
+        $_ = self::$mutex->acquire($dbKey);
 
-        try {
-            if (!isset(self::$connections[$dbKey])) {
+        if (!isset(self::$connections[$dbKey])) {
+            try {
                 $db = $settings->config->getDatabase();
                 $user = $settings->config->getUser();
                 $connection =  new PostgresConnectionPool($settings->config->withDatabase(null));
@@ -81,11 +80,9 @@ class PostgresArray extends SqlArray
                     ");
                 }
                 $connection->close();
-
-                self::$connections[$dbKey] = new PostgresConnectionPool($settings->config, $settings->maxConnections, $settings->idleTimeout);
+            } catch (\Throwable) {
             }
-        } finally {
-            EventLoop::queue($lock->release(...));
+            self::$connections[$dbKey] = new PostgresConnectionPool($settings->config, $settings->maxConnections, $settings->idleTimeout);
         }
 
         $connection = self::$connections[$dbKey];
@@ -170,8 +167,13 @@ class PostgresArray extends SqlArray
         }
     }
 
+    #[\Override]
     protected function importFromTable(string $fromTable): void
     {
+        if ($this->config->table === $fromTable) {
+            return;
+        }
+
         $this->db->query(/** @lang PostgreSQL */ "
             DROP TABLE \"bytea_{$this->config->table}\";
         ");

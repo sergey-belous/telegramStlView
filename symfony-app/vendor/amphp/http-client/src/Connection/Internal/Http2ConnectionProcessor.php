@@ -100,6 +100,7 @@ final class Http2ConnectionProcessor implements Http2Processor
 
     private ?int $shutdown = null;
 
+    /** @var Queue<string> */
     private readonly Queue $frameQueue;
 
     public function __construct(
@@ -1436,19 +1437,13 @@ final class Http2ConnectionProcessor implements Http2Processor
             return;
         }
 
-        $reason ??= new SocketException(
-            "The HTTP/2 connection from '" . $this->socket->getLocalAddress() . "' to '"
-            . $this->socket->getRemoteAddress() . "' closed unexpectedly",
-            Http2Parser::INTERNAL_ERROR,
-        );
-
         if ($this->settings !== null) {
             $message = "Connection closed before HTTP/2 settings could be received";
             $this->settings->error(new SocketException($message, 0, $reason));
             $this->settings = null;
         }
 
-        $previous = $reason->getPrevious();
+        $previous = $reason?->getPrevious();
         $previous = $previous instanceof Http2ConnectionException ? $previous : null;
 
         $code = $previous?->getCode() ?? Http2Parser::GRACEFUL_SHUTDOWN;
@@ -1469,6 +1464,7 @@ final class Http2ConnectionProcessor implements Http2Processor
             $this->writeFrame(Http2Parser::GOAWAY, data: \pack('NN', 0, $code) . $message)->ignore();
 
             foreach ($this->streams as $id => $stream) {
+                $reason ??= $this->makeDefaultShutdownReason();
                 $this->releaseStream($id, $reason, unprocessed: false);
             }
 
@@ -1480,8 +1476,18 @@ final class Http2ConnectionProcessor implements Http2Processor
                 continue;
             }
 
+            $reason ??= $this->makeDefaultShutdownReason();
             $this->releaseStream($id, $reason, unprocessed: true);
         }
+    }
+
+    private function makeDefaultShutdownReason(): SocketException
+    {
+        return new SocketException(
+            "The HTTP/2 connection from '" . $this->socket->getLocalAddress() . "' to '"
+            . $this->socket->getRemoteAddress() . "' closed unexpectedly",
+            Http2Parser::INTERNAL_ERROR,
+        );
     }
 
     /**
@@ -1597,11 +1603,16 @@ final class Http2ConnectionProcessor implements Http2Processor
     private function runWriteFiber(): void
     {
         try {
-            foreach ($this->frameQueue->iterate() as $frame) {
+            $iterator = $this->frameQueue->iterate();
+
+            while ($iterator->continue()) {
                 if (!$this->socket->isWritable()) {
-                    throw new SocketException('Connection has closed');
+                    $this->hasWriteError = true;
+                    $iterator->dispose();
+                    return;
                 }
 
+                $frame = $iterator->getValue();
                 $this->socket->write($frame);
             }
         } catch (\Throwable $exception) {
@@ -1610,7 +1621,7 @@ final class Http2ConnectionProcessor implements Http2Processor
             $this->shutdown(new SocketException(
                 "The HTTP/2 connection closed unexpectedly: " . $exception->getMessage(),
                 Http2Parser::INTERNAL_ERROR,
-                $exception
+                $exception,
             ));
         }
     }

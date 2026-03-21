@@ -75,7 +75,7 @@ final class MysqlArray extends SqlArray
         try {
             if (!isset(self::$connections[$dbKey])) {
                 $db = $settings->config->getDatabase();
-                $connection = new MysqlConnectionPool($settings->config->withDatabase(null));
+                $connection = new MysqlConnectionPool($settings->config->withDatabase(null), 1);
                 $connection->query("
                     CREATE DATABASE IF NOT EXISTS `{$db}`
                     CHARACTER SET 'utf8mb4' 
@@ -227,6 +227,7 @@ final class MysqlArray extends SqlArray
     /**
      * Perform async request to db.
      */
+    #[\Override]
     protected function execute(string $sql, array $params = []): SqlResult
     {
         foreach ($params as $key => $value) {
@@ -241,8 +242,13 @@ final class MysqlArray extends SqlArray
         return $this->db->query($sql);
     }
 
+    #[\Override]
     protected function importFromTable(string $fromTable): void
     {
+        if ($this->config->table === $fromTable) {
+            return;
+        }
+
         $this->db->query("
             REPLACE INTO `{$this->config->table}`
             SELECT * FROM `{$fromTable}`;
