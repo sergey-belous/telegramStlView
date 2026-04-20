@@ -1,3 +1,17 @@
+# Проект все еще на стеке Symfony, CouchDB && React TS
+
+Для запуска:
+
+- `make`
+- `docker exec -it nodejs bash -c 'cd app && npx vite --host=0.0.0.0'`
+- Настроить CORS через [http://localhost:5984](http://localhost:5984/_utils/#_config/nonode@nohost/cors)
+
+Доступно по http://localhost:5173/
+
+#
+# DRAFT BELOW
+#
+
 # telegramStlView (FastAPI + Telethon + Vue3)
 
 Проект переписан на новый стек:
